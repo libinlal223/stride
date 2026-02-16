@@ -1,0 +1,113 @@
+/* ---- TESTIMONIAL MARQUEE ---- */
+.marquee-section {
+    background: #020B1D;
+    /* Deep Navy Background */
+    padding: 6rem 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.marquee-container::before,
+.marquee-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.marquee-container::before {
+    left: 0;
+    background: linear-gradient(to right, #020B1D, transparent);
+}
+
+.marquee-container::after {
+    right: 0;
+    background: linear-gradient(to left, #020B1D, transparent);
+}
+
+.marquee-track {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    animation: scrollMarquee 40s linear infinite;
+    padding: 20px 0;
+}
+
+/* Hover Effect - Slow down/Pause */
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scrollMarquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.testimonial-card-marquee {
+    width: 400px;
+    flex-shrink: 0;
+    background: #0F172A;
+    /* Darker card bg */
+    border: 1px solid #1E293B;
+    /* Subtle border */
+    border-radius: 24px;
+    padding: 2.5rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.testimonial-card-marquee:hover {
+    border-color: #0052CC;
+    /* Highlight on individual hover */
+    transform: translateY(-5px);
+}
+
+.quote-icon {
+    font-size: 2rem;
+    color: #0052CC;
+    line-height: 1;
+}
+
+.testimonial-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    flex-grow: 1;
+}
+
+.testimonial-author {
+    margin-top: auto;
+}
+
+.author-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+}
+
+.author-role {
+    font-size: 0.8rem;
+    color: #64748B;
+    display: block;
+    margin-top: 4px;
+}

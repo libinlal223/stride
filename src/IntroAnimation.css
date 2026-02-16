@@ -1,0 +1,111 @@
+/* Intro Animation */
+.intro-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: #001f4d;
+    /* Dark blue background */
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease 3s;
+}
+
+.intro-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.intro-content {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    /* Start centered */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* When moving to navbar position */
+.intro-content.move-to-nav {
+    top: 50px;
+    /* Center of 100px header */
+    left: 88px;
+    /* 32px padding + 40px logo + 16px gap */
+    transform: translate(0, -50%);
+}
+
+.intro-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    opacity: 0;
+    transform: scale(0.8);
+    animation: logoFadeIn 0.6s ease forwards;
+}
+
+@keyframes logoFadeIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.intro-content.move-to-nav .intro-logo {
+    width: 40px;
+    height: 40px;
+}
+
+.intro-text {
+    font-family: 'Lexend', sans-serif;
+    font-weight: 700;
+    font-size: 4rem;
+    letter-spacing: -0.05em;
+    color: white;
+    line-height: 1;
+    white-space: nowrap;
+    /* Start hidden to the right */
+    opacity: 0;
+    transform: translateX(100px);
+}
+
+/* Text pan-in animation */
+.intro-text.pan-in {
+    animation: textPanIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 0.6s;
+    /* Start after logo appears */
+}
+
+@keyframes textPanIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.intro-content.move-to-nav .intro-text {
+    font-size: 2rem;
+    /* Navbar size */
+}
+
+/* Main content fade in */
+.app-content-wrapper {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.app-content-wrapper.visible {
+    opacity: 1;
+}
+
+/* Hide navbar logo initially */
+.navbar-logo-group {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.navbar-logo-group.visible {
+    opacity: 1;
+}
