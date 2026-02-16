@@ -1,5 +1,6 @@
 ﻿import React, { useState, useEffect, useRef } from 'react';
 import './index.css';
+import './CostCalculator.css';
 import logo from './assets/images/logo.png';
 import img1 from './assets/images/1-removebg-preview.png';
 import img2 from './assets/images/2-removebg-preview.png';
@@ -11,6 +12,7 @@ import skyscraper from './assets/images/skyscraper box.png';
 import strideBanner from './assets/images/stride_1.png';
 import strideMobile from './assets/images/stride_2.png';
 import ceoImage from './assets/images/ceo.png';
+import handBg from './assets/images/handbg.png';
 import meydanLogo from './assets/images/packages/mayden.png';
 import spcLogo from './assets/images/packages/spc freezone.jpg';
 import srtipLogo from './assets/images/packages/strip.jpg';
@@ -364,6 +366,47 @@ function App() {
             </div>
           </div>
         </section >
+
+        {/* hand section / Cost Calculator */}
+        <section className="cost-calculator-section">
+          {/* Background Image */}
+          <img
+            src={handBg}
+            alt="Hand Background"
+            className="cost-calculator-bg-img"
+          />
+
+          <div className="container">
+            <div className="cost-calculator-grid">
+              {/* Left Column */}
+              <div className="cost-calculator-left">
+                <h2 className="cost-calc-title">
+                  Plan Your Business<br />
+                  With Confidence<br />
+                  <br />
+                  <span style={{ color: '#94A3B8' }}>Empowering Entrepreneurs</span>
+                </h2>
+
+
+              </div>
+
+              {/* Center Column - Spacer */}
+              <div></div>
+
+              {/* Right Column */}
+              <div className="cost-calculator-right">
+
+
+
+                <p className="cost-calc-desc">
+                  Get a clear estimate of your business setup costs across the UAE, GCC, and India. Plan confidently with accurate and transparent insights.                </p>
+                <button className="btn btn-dark-pill cost-calc-btn">
+                  contact now<span>→</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* CEO Section */}
         < section className="container ceo-section" >
