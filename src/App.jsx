@@ -25,6 +25,14 @@ import srtipBg from './assets/images/packages/packages background/stripbg.jpg';
 import rakezBg from './assets/images/packages/packages background/rakezbg.jpg';
 import ifzaBg from './assets/images/packages/packages background/ifzabg.jpg';
 import shamsBg from './assets/images/packages/packages background/shams.webp';
+
+import serviceBusiness from './assets/images/services/business setup.jpeg';
+import servicePRO from './assets/images/services/pro services.jpeg';
+import serviceBank from './assets/images/services/bank acount openng.jpeg';
+import serviceWeb from './assets/images/services/company website.jpeg';
+import serviceAccount from './assets/images/services/account and bookeeping.jpeg';
+import serviceLiquid from './assets/images/services/company liquidaion.jpeg';
+import globeImg from './assets/images/globe.png';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, OrbitControls, Environment } from '@react-three/drei';
 const modelUrl = '/Untitled.glb';
@@ -81,6 +89,7 @@ function App() {
 
   // Scroll Reveal Logic
   const ceoRef = useRef(null);
+  const businessRef = useRef(null);
   const bottomRowRef = useRef(null);
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -96,6 +105,7 @@ function App() {
     );
     if (bottomRowRef.current) observer.observe(bottomRowRef.current);
     if (ceoRef.current) observer.observe(ceoRef.current);
+    if (businessRef.current) observer.observe(businessRef.current);
     return () => observer.disconnect();
   }, []);
 
@@ -143,8 +153,8 @@ function App() {
               {/* Left Content */}
               <div className="hero-text-content">
                 <h1 className="hero-main-headline">
-                  <span className="text-highlight-blue">Unlock Your Potential</span><br />
-                  <span className="text-dark-main">with Strategic<br />Consulting</span>
+                  <span className="text-highlight-blue">Grow Your Business</span><br />
+                  <span className="text-dark-main">with Stride</span>
                 </h1>
                 <p className="hero-sub-text">
                   Guiding Your Success Journey Through Expertise and Innovation
@@ -341,31 +351,69 @@ function App() {
         </section >
 
         {/* SERVICES REDESIGN (Stats & Testimonial) */}
-        < section id="case-studies" className="container" style={{ margin: '4rem auto' }
-        }>
-          <div className="business-setup-grid">
+        <section id="case-studies" className="container business-modern-section" style={{ margin: '6rem auto' }}>
+          <div className="business-modern-grid" ref={businessRef}>
 
             {/* Left Content */}
-            <div>
-              <h2 className="business-setup-title">
+            <div className="animate-text-group">
+              <span style={{
+                display: 'inline-block',
+                background: '#E0F2FE',
+                color: '#0052CC',
+                padding: '8px 16px',
+                borderRadius: '50px',
+                fontWeight: '600',
+                fontSize: '0.9rem',
+                marginBottom: '1.5rem'
+              }}>
+                Premier Consultancy
+              </span>
+
+              <h2 className="business-setup-title" style={{ fontFamily: 'var(--font-display)', fontSize: '3rem', marginBottom: '1.5rem' }}>
                 Stride Business Setup L.L.C
               </h2>
-              <p className="business-setup-desc" style={{ marginBottom: '1rem', fontFamily: 'Calibri, sans-serif' }}>
-                We are a leading business consultancy firm specializing in company formation and comprehensive corporate services. With over 16 years of industry expertise, our team delivers strategic guidance and end-to-end support for entrepreneurs and enterprises across the UAE, GCC, and India.
-                <br />
-                We simplify the complexities of business setup through personalized solutions, regulatory expertise, and practical insights tailored to each client’s goals. Our commitment is to build long-term partnerships by ensuring efficiency, compliance, and sustainable growth at every stage of your business journey.
-              </p>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <p className="business-setup-desc" style={{ marginBottom: 0, fontSize: '1rem', lineHeight: 1.6, fontFamily: 'var(--font-main)' }}>
+                  We are a leading business consultancy firm specializing in company formation and comprehensive corporate services. With over 16 years of industry expertise, our team delivers strategic guidance and end-to-end support for entrepreneurs and enterprises across the UAE, GCC, and India.
+                </p>
+
+                <p className="business-setup-desc" style={{ marginBottom: 0, fontSize: '1rem', lineHeight: 1.6, fontFamily: 'var(--font-main)' }}>
+                  We simplify the complexities of business setup through personalized solutions, regulatory expertise, and practical insights tailored to each client’s goals. Our commitment is to build long-term partnerships by ensuring efficiency, compliance, and sustainable growth at every stage of your business journey.
+                </p>
 
 
+                {/* Features List */}
+
+
+                <a href="#contact" className="business-cta-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
+                  Get Expert Advisory Support <span style={{ marginLeft: '8px' }}>→</span>
+                </a>
+              </div>
             </div>
 
             {/* Right Card */}
-            <div style={{ position: 'relative', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
+            <div className="business-image-wrapper">
               {/* Image */}
-              <img src={skyscraper} alt="Business Setup" style={{ width: '100%', height: 'auto', display: 'block' }} />
+              <img src={skyscraper} alt="Business Setup" className="business-main-img" />
+
+              {/* Floating Badge */}
+              <div className="experience-badge">
+                <span className="exp-years">16+</span>
+                <span className="exp-label">Years of<br />Excellence</span>
+              </div>
+
+              {/* Floating Rating Badge (Top Right) */}
+              <div className="rating-badge">
+                <span style={{ fontSize: '1.5rem', color: '#FFD700' }}>★</span>
+                <div>
+                  <div style={{ fontWeight: '700', fontSize: '0.9rem', color: '#0F172A' }}>Top Rated</div>
+                  <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Trust & Quality</div>
+                </div>
+              </div>
             </div>
           </div>
-        </section >
+        </section>
 
         {/* hand section / Cost Calculator */}
         <section className="cost-calculator-section">
@@ -409,29 +457,36 @@ function App() {
         </section>
 
         {/* CEO Section */}
-        < section className="container ceo-section" >
-          <div className="ceo-grid fade-in-up" ref={ceoRef}>
-            {/* Left Image */}
-            <div className="ceo-image-container">
-              <img src={ceoImage} alt="Fasal Rahman, Managing Director" className="ceo-image" />
-            </div>
+        < section id="products" className="container" style={{ paddingTop: '40px' }}>
 
-            {/* Right Content */}
-            <div className="ceo-content">
+
+
+
+          <div className="service-content fade-in">
+            <div>
               <span className="ceo-label">Managing Director & Co-Founder</span>
-              <h2 className="ceo-name" style={{ marginTop: '1rem' }}>FASAL RAHMAN</h2>
-              <p className="ceo-desc" style={{ fontFamily: 'Calibri, sans-serif' }}>
-                "At STRIDE BUSINESS SETUP LLC, we are committed to empowering entrepreneurs with the right tools, expert guidance, and strategic clarity required for sustainable success. We believe in delivering more than just services — we build meaningful partnerships founded on trust, transparency, and a genuine commitment to our clients’ long-term growth.
-                <br />
-                Every decision we make is driven by our responsibility to provide exceptional service, consistent reliability, and unwavering support. Our goal is to simplify complexity, reduce risk, and create a seamless journey for businesses at every stage — from formation to expansion.
-                <br />
-                We take pride in being a trusted partner for ambitious individuals and organizations who seek not just to start a business, but to build a legacy."
+              <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>
+                Fasal Rahman
+              </h3>
+              <p className="text-muted" style={{ marginBottom: '2rem', lineHeight: 1.6 }}>
+                With 16 years of experience in the business setup
+                industry, Fasal leads the company with a vision for
+                excellence and integrity. His message: "At STRIDE
+                BUSINESS SETUP LLC, we are committed to
+                empowering entrepreneurs with the tools and
+                guidance needed for sustainable success. We believe
+                in providing not just solutions but partnerships built
+                on trust, transparency, and a genuine interest in the
+                long-term growth of our clients. Every decision we
+                make is aimed at ensuring our clients receive
+                exceptional service and unwavering support.
               </p>
-
+            </div>
+            <div style={{ height: '450px', borderRadius: '16px', overflow: 'hidden' }}>
+              <img src={ceoImage} alt="Fasal Rahman" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
             </div>
           </div>
         </section >
-
 
         {/* Full Width Banner */}
         < div style={{ width: '100%', overflow: 'hidden', marginTop: '4rem', marginBottom: '4rem' }}>
@@ -454,32 +509,32 @@ function App() {
               {
                 title: "Business Setup",
                 desc: "Mainland, Freezone, Offshore, India, GCC. We handle all registration and licensing requirements.",
-                image: side1
+                image: serviceBusiness
               },
               {
                 title: "PRO Services",
                 desc: "Expert assistance with documentation, visa services, and government liaison.",
-                image: side2
+                image: servicePRO
               },
               {
                 title: "Bank Account Opening",
                 desc: "End-to-end support for opening corporate and personal accounts with leading banks.",
-                image: side3
+                image: serviceBank
               },
               {
                 title: "Company Website Development",
                 desc: "Professional website creation to enhance your digital presence.",
-                image: side4
+                image: serviceWeb
               },
               {
                 title: "Accounting & Bookkeeping",
                 desc: "Full-service compliance, financial reporting, and auditing solutions.",
-                image: side1
+                image: serviceAccount
               },
               {
                 title: "Company Liquidation",
                 desc: "Comprehensive support for closing businesses while ensuring full regulatory compliance.",
-                image: side2
+                image: serviceLiquid
               }
             ].map((service, index) => (
               <div key={index} className="service-modern-card">
@@ -503,14 +558,15 @@ function App() {
               {/* Cards */}
               {[
                 {
-                  text: "Working with Stride was a game-changer for us. Their market analysis and insights helped us navigate challenging market conditions and seize new opportunities.",
-                  name: "MICHAEL THOMPSON",
-                  role: "FOUNDER OF ECOGREEN SOLUTIONS"
+                  text: "STRIDE simplified what seemed complicated. Their professionalism and steady guidance helped us establish our company with confidence and peace of mind.",
+                  name: "AHMAD SEYER",
+                  role: "OWNER, AL JAF PROJECT MANAGEMENT"
+
                 },
                 {
                   text: "Stride transformed our business operations with their customized strategies. Their team identified key areas for improvement and provided actionable solutions.",
-                  name: "EMMA RODRIGUEZ",
-                  role: "CEO OF TRENDTECH INNOVATIONS"
+                  name: "MUHAMMED FARHAN KARIM",
+                  role: "WARDAT AL KAREEM TECHNICAL NOVATIONS"
                 },
                 {
                   text: "The leadership training provided by Stride has been invaluable. Our team is now more cohesive and motivated, driving the company forward with renewed energy.",
@@ -561,7 +617,6 @@ function App() {
         < section className="freezone-section" >
           <div className="container">
             <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-              <span className="package-badge" style={{ fontSize: '1rem', background: '#E0F2FE', color: '#0052CC', padding: '8px 16px', borderRadius: '50px' }}>Exclusive Offers</span>
               <h2 className="section-title" style={{ marginTop: '1rem' }}>Packages</h2>
               <p className="text-muted" style={{ maxWidth: '600px', margin: '0 auto' }}>
                 Secure your business license in UAE's top free zones with exclusive pricing and benefits.
@@ -674,22 +729,25 @@ function App() {
                   {/* Right Side */}
                   <div className="freezone-right">
                     <div className="freezone-header">
-                      <div className="freezone-price-box" style={{ width: '100%' }}>
-                        <div style={{
-                          display: 'inline-block',
-                          background: '#E0F2FE',
-                          color: '#0052CC',
-                          padding: '6px 16px',
-                          borderRadius: '20px',
-                          fontSize: '0.85rem',
-                          fontWeight: '600',
-                          marginBottom: '0.5rem'
-                        }}>
-                          With Visa
-                        </div>
-                        <span className="freezone-price-label">Starting from</span>
-                        <div className="freezone-price">
-                          AED {pkg.priceBase.toLocaleString()}
+                      <div className="freezone-price-box" style={{ width: '100%', minHeight: '120px' }}>
+                        <div key={showVisaPrice ? 'visa' : 'base'} className="price-fade-anim">
+                          <div style={{
+                            display: 'inline-block',
+                            background: showVisaPrice ? '#E0F2FE' : '#F1F5F9',
+                            color: showVisaPrice ? '#0052CC' : '#64748B',
+                            padding: '6px 16px',
+                            borderRadius: '20px',
+                            fontSize: '0.85rem',
+                            fontWeight: '600',
+                            marginBottom: '0.5rem'
+                          }}>
+                            {showVisaPrice ? 'With Visa' : 'Without Visa'}
+                          </div>
+                          <br />
+                          <span className="freezone-price-label">Starting from</span>
+                          <div className="freezone-price">
+                            AED {(showVisaPrice ? pkg.priceVisa : pkg.priceBase).toLocaleString()}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -710,112 +768,48 @@ function App() {
         </section >
 
         {/* FINANCIAL PRODUCTS (Tabs) */}
-        < section id="products" className="container" style={{ paddingTop: '40px' }}>
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
-              Financial <span className="text-accent">â†—</span> Freedom
+
+
+        {/* FEATURES GRID / RESOURCES */}
+        <section id="resources" className="resources-section">
+          {/* Background Image */}
+          <div className="resources-bg-wrapper">
+            <img src={globeImg} alt="Global Network" className="resources-bg-img" />
+            <div className="resources-overlay"></div>
+          </div>
+
+          <div className="container resources-content">
+            <h2 className="resources-title">
+              Empowering Your  <br /><span className="text-highlight-blue">Business Journey</span>
             </h2>
-            <p className="text-muted">Tailored offerings to meet unique needs and challenges.</p>
-          </div>
-
-          <div className="tabs-container flex-center">
-            <button className={`tab-btn ${activeTab === 'credit' ? 'active' : ''}`} onClick={() => setActiveTab('credit')}>Business Line of Credit</button>
-            <button className={`tab-btn ${activeTab === 'equipment' ? 'active' : ''}`} onClick={() => setActiveTab('equipment')}>Equipment Financing</button>
-            <button className={`tab-btn ${activeTab === 'merchant' ? 'active' : ''}`} onClick={() => setActiveTab('merchant')}>Merchant Services</button>
-          </div>
-
-          <div className="service-content fade-in">
-            <div>
-              <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>
-                {activeTab === 'credit' && 'Business Line of Credit'}
-                {activeTab === 'equipment' && 'Equipment Financing'}
-                {activeTab === 'merchant' && 'Merchant Services'}
-              </h3>
-              <p className="text-muted" style={{ marginBottom: '2rem', lineHeight: 1.6 }}>
-                Unlock the capital you need to grow your business. flexible terms and competitive rates designed for modern enterprises.
-              </p>
-              <button className="btn btn-primary">Apply Now â†’</button>
-            </div>
-            <div style={{ height: '300px', background: '#F1F5F9', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ color: '#94A3B8' }}>{activeTab} Visual Placeholder</span>
-            </div>
-          </div>
-        </section >
-
-        {/* FEATURES GRID */}
-        < section id="resources" className="container" >
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>
-            Empower Your Business with<br />Our Cutting-Edge <span className="text-accent">Features</span>
-          </h2>
-          <div className="bento-grid">
-            <div className="bento-card tall" style={{ background: '#F8F9FA' }}>
-              <div>
-                <h3>Expert Advice and Support</h3>
-                <p className="text-muted" style={{ marginTop: '1rem' }}>
-                  Our dedicated team is here to help you every step of the way.
-                </p>
+            <br />
+            <p className="resources-desc" style={{ fontFamily: 'var(--font-main)' }}>
+              We simplify company formation and corporate services across UAE, GCC, and India with expertise, efficiency, and integrity.
+            </p>
+            <br />
+            {/* Additional Element: Stats Row */}
+            <div className="resources-stats">
+              <div className="stat-item">
+                <span className="stat-number">16+</span>
+                <span className="stat-label">Years of Experience</span>
               </div>
-              <div style={{ marginTop: '2rem', height: '200px', background: '#E2E8F0', borderRadius: '12px' }}></div>
-            </div>
-            <div className="bento-card">
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                <div style={{ width: 40, height: 40, borderRadius: '50%', background: '#EFF6FF' }}></div>
-                <span className="text-accent" style={{ fontSize: '1.5rem' }}>â†—</span>
+              <div className="stat-divider"></div>
+              <div className="stat-item">
+                <span className="stat-number">990</span>
+                <span className="stat-label">Satisfied Clients</span>
               </div>
-              <h3>Quick Approval</h3>
-              <p className="text-muted text-sm" style={{ marginTop: '0.5rem' }}>Get pre-approved in as little as 24 hours.</p>
-            </div>
-            <div className="bento-card dark">
-              <h3>Privacy and Security</h3>
-              <p style={{ marginTop: '1rem', opacity: 0.8 }}>
-                Your data is protected with enterprise-grade encryption.
-              </p>
-              <div style={{ marginTop: 'auto', paddingTop: '2rem' }}>
-                <span style={{ fontSize: '2rem', color: '#0052CC' }}>ðŸ”’</span>
+              <div className="stat-divider"></div>
+              <div className="stat-item">
+                <span className="stat-number">420</span>
+                <span className="stat-label">Consulting Solutions</span>
               </div>
             </div>
           </div>
-        </section >
+        </section>
 
         {/* PACKAGES (PRICING) */}
         < section id="pricing" className="container" >
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <h2 className="section-title">Engagement Models</h2>
-            <p className="text-muted">Choose the plan that fits your growth stage.</p>
-          </div>
-          <div className="pricing-grid">
-            <div className="pricing-card">
-              <h3>Advisory plan</h3>
-              <div className="pricing-price">$1k<span style={{ fontSize: '1rem', color: '#94A3B8' }}>/mo</span></div>
-              <p className="text-muted">Essential guidance for startups.</p>
-              <ul className="pricing-features">
-                <li><span>âœ”</span> Bi-weekly Strategy Calls</li>
-                <li><span>âœ”</span> Market Analysis</li>
-              </ul>
-              <button className="btn btn-outline" style={{ width: '100%' }}>Choose Plan</button>
-            </div>
-            <div className="pricing-card featured">
-              <h3>Growth Plan</h3>
-              <div className="pricing-price" style={{ color: '#0052CC' }}>$5k<span style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.7)' }}>/mo</span></div>
-              <p style={{ opacity: 0.9 }}>Full scaling support for SMEs.</p>
-              <ul className="pricing-features" style={{ color: 'white' }}>
-                <li><span>âœ”</span> Weekly Strategy Sessions</li>
-                <li><span>âœ”</span> Operational Optimization</li>
-                <li><span>âœ”</span> Dedicated Manager</li>
-              </ul>
-              <button className="btn btn-primary" style={{ width: '100%' }}>Best Value</button>
-            </div>
-            <div className="pricing-card">
-              <h3>Enterprise</h3>
-              <div className="pricing-price">Custom</div>
-              <p className="text-muted">Transformation for large orgs.</p>
-              <ul className="pricing-features">
-                <li><span>âœ”</span> 24/7 Strategic Support</li>
-                <li><span>âœ”</span> On-site Implementation</li>
-              </ul>
-              <button className="btn btn-outline" style={{ width: '100%' }}>Contact Sales</button>
-            </div>
-          </div>
+
         </section >
 
         {/* CONTACT SECTION */}
@@ -825,19 +819,19 @@ function App() {
               <div>
                 <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>Let's Build the Future</h2>
                 <p style={{ fontSize: '1.1rem', opacity: 0.9, marginBottom: '2rem' }}>
-                  Ready to transform your business? Get in touch with our expert team today.
+                  Kickstart your entrepreneurial journey with Stride Bound Business Setup Services LLC.
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    <span style={{ fontSize: '1.5rem', color: '#0052CC' }}>âœ‰</span>
-                    <span>contact@stride.consulting</span>
+                    <span style={{ fontSize: '1.5rem', color: '#0052CC' }}>📧</span>
+                    <span>ccontact@stride.consulting</span>
                   </div>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    <span style={{ fontSize: '1.5rem', color: '#0052CC' }}>ðŸ“ž</span>
+                    <span style={{ fontSize: '1.5rem', color: '#0052CC' }}>☎️</span>
                     <span>+1 (800) 555-0123</span>
                   </div>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    <span style={{ fontSize: '1.5rem', color: '#0052CC' }}>ðŸ“</span>
+                    <span style={{ fontSize: '1.5rem', color: '#0052CC' }}>🏢</span>
                     <span>101 Stride Tower, New York, NY</span>
                   </div>
                 </div>
@@ -854,23 +848,86 @@ function App() {
         </section >
 
         {/* SOCIAL IMPACT / FOOTER */}
-        < section className="container" style={{ paddingBottom: '40px', borderTop: '1px solid #E2E8F0', marginTop: '4rem' }}>
-          <div style={{ marginTop: '4rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '2rem' }}>
-            <div>
-              <h3>Our Positive <span className="text-accent">Social Impact</span></h3>
-              <p className="text-muted">Driving economic growth in local communities.</p>
+        {/* PREMIUM FOOTER */}
+        <footer className="premium-footer">
+          <div className="container">
+            {/* Top Section: Slogan & Newsletter */}
+            <div className="footer-top">
+              <div className="footer-slogan">
+                <h2>Partnering for your <br /> Business Success.</h2>
+              </div>
+              <div className="footer-newsletter-wrapper">
+                <p style={{ marginBottom: '1rem', fontWeight: '500' }}>Get In Touch!</p>
+                <form className="footer-newsletter-pill" onSubmit={(e) => e.preventDefault()}>
+                  <input type="email" placeholder="Enter your email" />
+                  <button type="submit">Subscribe</button>
+                </form>
+              </div>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <span style={{ fontSize: '1.2rem', fontWeight: 700 }}>Trustpilot</span>
-              <span style={{ color: '#0052CC', fontSize: '1.5rem' }}>â˜…â˜…â˜…â˜…â˜…</span>
-              <span className="text-muted">TrustScore 4.9 | 2k Reviews</span>
-            </div>
-          </div>
 
-          <div style={{ textAlign: 'center', marginTop: '4rem', color: '#94A3B8', fontSize: '0.9rem' }}>
-            Â© 2026 Stride Consulting. All rights reserved.
+            <div className="footer-divider-line"></div>
+
+            {/* Main Grid */}
+            <div className="footer-grid-new">
+              {/* Col 1: Contact Information */}
+              <div className="footer-col-new">
+                <h4>CONTACT INFORMATION</h4>
+                <div className="contact-row">
+                  <span className="icon">📧</span>
+                  <span>contact@stride.consulting</span>
+                </div>
+                <div className="contact-row">
+                  <span className="icon">📞</span>
+                  <span>+971 4 123 4567</span>
+                </div>
+                <div className="contact-row">
+                  <span className="icon">📍</span>
+                  <span>101 Stride Tower, Dubai</span>
+                </div>
+              </div>
+
+              {/* Col 2: Company */}
+              <div className="footer-col-new">
+                <h4>COMPANY</h4>
+                <a href="#">About Us</a>
+                <a href="#">Our Team</a>
+                <a href="#">Careers</a>
+                <a href="#">Blog & Insights</a>
+              </div>
+
+              {/* Col 3: Services */}
+              <div className="footer-col-new">
+                <h4>SERVICES</h4>
+                <a href="#">Business Setup</a>
+                <a href="#">PRO Services</a>
+                <a href="#">Bank Account Opening</a>
+                <a href="#">Tax & Accounting</a>
+              </div>
+
+              {/* Col 4: Follow Us */}
+              <div className="footer-col-new">
+                <h4>FOLLOW US</h4>
+                <div className="social-icons-row">
+                  <a href="#" className="social-icon" aria-label="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                  </a>
+                  <a href="#" className="social-icon" aria-label="Twitter">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg>
+                  </a>
+                  <a href="#" className="social-icon" aria-label="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Section */}
+            <div className="footer-bottom-new">
+              <div className="footer-divider-line" style={{ margin: '2rem 0' }}></div>
+              <p>© 2026 Stride Business Setup. All rights reserved.</p>
+            </div>
           </div>
-        </section >
+        </footer>
 
       </div >
     </div >

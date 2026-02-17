@@ -2,7 +2,7 @@
 .marquee-section {
     background: #020B1D;
     /* Deep Navy Background */
-    padding: 6rem 0;
+    padding: 3rem 0;
     overflow: hidden;
     position: relative;
 }
@@ -36,7 +36,7 @@
 
 .marquee-track {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
     width: max-content;
     animation: scrollMarquee 40s linear infinite;
     padding: 20px 0;
@@ -58,18 +58,18 @@
 }
 
 .testimonial-card-marquee {
-    width: 400px;
+    width: 320px;
     flex-shrink: 0;
     background: #0F172A;
     /* Darker card bg */
     border: 1px solid #1E293B;
     /* Subtle border */
-    border-radius: 24px;
-    padding: 2.5rem;
+    border-radius: 16px;
+    padding: 1.5rem;
     color: white;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
     transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
@@ -80,14 +80,14 @@
 }
 
 .quote-icon {
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #0052CC;
     line-height: 1;
 }
 
 .testimonial-text {
-    font-size: 1.1rem;
-    line-height: 1.6;
+    font-size: 0.95rem;
+    line-height: 1.5;
     color: rgba(255, 255, 255, 0.9);
     flex-grow: 1;
 }
@@ -97,7 +97,7 @@
 }
 
 .author-name {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: white;
     text-transform: uppercase;
@@ -106,8 +106,8 @@
 }
 
 .author-role {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #64748B;
     display: block;
-    margin-top: 4px;
+    margin-top: 2px;
 }
