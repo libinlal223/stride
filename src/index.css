@@ -364,7 +364,8 @@ section {
   width: 100%;
   max-width: 350px;
   /* Reduced size further */
-  margin: -12rem 0 0 0;
+  /* Reduced size further */
+  margin: 0;
   /* Pull upwards */
   align-self: flex-start;
   /* Force left alignment */
@@ -706,8 +707,8 @@ section {
   }
 
   .hero-image-frame {
-    clip-path: inset(10% 0 0 0);
-    /* Cut top 10% */
+    /* Removed clip-path to prevent cutting off the top of the image */
+    clip-path: none;
   }
 }
 
@@ -2273,12 +2274,10 @@ section {
 
 .text-highlight-blue {
   color: #0052CC;
-  display: block;
 }
 
 .text-dark-main {
   color: #0F172A;
-  display: block;
 }
 
 .hero-sub-text {
@@ -3229,5 +3228,156 @@ section {
     width: 50px;
     height: 1px;
     margin: 0.5rem 0;
+  }
+}
+
+/* ---- BUSINESS SETUP MODERN SECTION ---- */
+.business-modern-section {
+  position: relative;
+  z-index: 5;
+}
+
+.business-modern-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .business-modern-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+}
+
+/* Text Animations */
+.animate-text-group {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.business-modern-grid.visible .animate-text-group {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.business-setup-title {
+  color: #0F172A;
+  line-height: 1.1;
+}
+
+.business-setup-desc {
+  color: #475569;
+}
+
+.business-cta-btn {
+  background: #0F172A;
+  color: white;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.business-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15);
+  gap: 12px;
+  text-decoration: none;
+}
+
+/* Image Wrapper */
+.business-image-wrapper {
+  position: relative;
+  border-radius: 24px;
+  overflow: visible;
+  /* Allow badges to float out */
+}
+
+.business-main-img {
+  width: 100%;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Badges */
+.experience-badge {
+  position: absolute;
+  bottom: 30px;
+  left: -30px;
+  background: #FFFFFF;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+  animation: float 4s ease-in-out infinite;
+}
+
+.exp-years {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0052CC;
+  line-height: 1;
+}
+
+.exp-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #0F172A;
+  line-height: 1.2;
+}
+
+.rating-badge {
+  position: absolute;
+  top: 30px;
+  right: -20px;
+  background: #FFFFFF;
+  padding: 0.8rem 1.2rem;
+  border-radius: 50px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+  animation: float 5s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 768px) {
+  .experience-badge {
+    left: 10px;
+    bottom: 10px;
+    padding: 0.8rem 1rem;
+  }
+
+  .exp-years {
+    font-size: 1.8rem;
+  }
+
+  .rating-badge {
+    right: 10px;
+    top: 10px;
   }
 }

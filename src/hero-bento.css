@@ -1,0 +1,138 @@
+/* HERO BENTO GRID SECTION (New Flex Box as per prompt) */
+.schedule-section-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 500px) {
+    .schedule-section-grid {
+        grid-template-columns: 1fr 1fr;
+        /* Basic 2 col */
+        grid-template-rows: auto auto;
+    }
+}
+
+.hero-bento-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.3s ease;
+    min-height: 180px;
+}
+
+.hero-bento-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.hero-bento-card.dark {
+    background: #1e293b;
+    color: white;
+}
+
+.hero-bento-card.light {
+    background: #F1F5F9;
+    color: #0F172A;
+}
+
+.hero-bento-card.accent {
+    background: #0052CC;
+    color: white;
+}
+
+/* Card Spans for Grid Effect */
+/* Top Row: Left Wide, Right Narrow */
+.hero-bento-card.span-large {
+    grid-column: span 1;
+}
+
+.hero-bento-card.span-small {
+    grid-column: span 1;
+}
+
+@media (min-width: 768px) {
+    .schedule-section-grid {
+        grid-template-columns: 1.4fr 1fr;
+        /* Wide Left, Narrow Right for top row logic */
+        display: flex;
+        flex-wrap: wrap;
+        align-content: stretch;
+    }
+
+    /* Flex basis approach for exact mix */
+    .hero-bento-card {
+        flex-grow: 1;
+    }
+
+    .hero-bento-card.wide {
+        flex-basis: 58%;
+        /* ~60% */
+    }
+
+    .hero-bento-card.narrow {
+        flex-basis: 38%;
+        /* ~40% */
+    }
+}
+
+/* Content Styles */
+.bento-card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    z-index: 2;
+}
+
+.bento-card-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0.9;
+}
+
+.bento-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+    z-index: 1;
+}
+
+.bento-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.bento-subtitle {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    line-height: 1.4;
+}
+
+.bento-icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}

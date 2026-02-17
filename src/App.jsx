@@ -1,6 +1,8 @@
 ﻿import React, { useState, useEffect, useRef } from 'react';
 import './index.css';
+import './downside.css';
 import './CostCalculator.css';
+import './hero-bento.css';
 import logo from './assets/images/logo.png';
 import img1 from './assets/images/1-removebg-preview.png';
 import img2 from './assets/images/2-removebg-preview.png';
@@ -33,9 +35,7 @@ import serviceWeb from './assets/images/services/company website.jpeg';
 import serviceAccount from './assets/images/services/account and bookeeping.jpeg';
 import serviceLiquid from './assets/images/services/company liquidaion.jpeg';
 import globeImg from './assets/images/globe.png';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, OrbitControls, Environment } from '@react-three/drei';
-const modelUrl = '/Untitled.glb';
+
 import './Marquee.css';
 
 const SIDE_IMAGES = [side1, side2, side3, side4];
@@ -114,241 +114,138 @@ function App() {
 
       {/* Navbar */}
       {/* HERO SECTION (Contained Card Version) */}
-      <section id="home" className="hero-section-outer">
-        <div style={{ width: '100%', padding: 0 }}>
+      {/* Navbar moved inside Smart Hero Section */}
+      <div style={{ paddingTop: '0' }}>
+        <section id="home" className="smart-section-container" ref={bottomRowRef} style={{ marginTop: 0, borderRadius: '0 0 40px 40px', minHeight: '100vh', padding: '2rem 0 6rem 0' }}>
+          <div className="smart-bg-stripes"></div>
+          <div className="smart-blur-glow" style={{ top: '-10%', left: '20%' }}></div>
+          <div className="smart-blur-glow" style={{ bottom: '-10%', right: '20%', background: '#4F46E5', opacity: 0.15 }}></div>
 
-          <div className="hero-contained-card">
-
-            {/* Navbar Inside Card */}
-            <header className="hero-inner-navbar">
-
+          <div className="container" style={{ position: 'relative', zIndex: 10 }}>
+            {/* Navbar Inside Smart Section */}
+            <header className="hero-inner-navbar" style={{ marginBottom: '4rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => window.scrollTo(0, 0)}>
-                <img src={logo} alt="Stride" style={{ width: '40px', height: '40px', objectFit: 'contain' }} />
+                <img src={logo} alt="Stride" style={{ width: '40px', height: '40px', objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
                 <span style={{
                   fontFamily: "'Lexend', sans-serif", fontWeight: 700, fontSize: '1.5rem', letterSpacing: '-0.02em',
-                  color: '#0F172A', lineHeight: 1
+                  color: '#ffffff', lineHeight: 1
                 }}>stride</span>
               </div>
 
               {/* Centered Links */}
               <nav className="navbar-links-center">
-                <a href="#case-studies">Services</a>
-                <a href="#about">About Us</a>
-                <a href="#contact">Contact Us</a>
+                <a href="#case-studies" style={{ color: 'white' }}>Services</a>
+                <a href="#about" style={{ color: 'white' }}>About Us</a>
+                <a href="#contact" style={{ color: 'white' }}>Contact Us</a>
               </nav>
 
               {/* Right Action */}
               <div className="navbar-right-action">
-                <a href="tel:+18005550123" className="btn-nav-outline">
+                <a href="tel:+18005550123" className="btn-nav-outline" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
                   (800) 555-0123
                 </a>
                 <button className="navbar-mobile-toggle-dark" onClick={() => setMobileMenuOpen(true)}>
-                  <span style={{ color: '#0F172A', fontSize: '1.5rem' }}>☰</span>
+                  <span style={{ color: '#ffffff', fontSize: '1.5rem' }}>☰</span>
                 </button>
               </div>
             </header>
 
-            {/* Hero Content Grid */}
-            <div className="hero-inner-grid">
-              {/* Left Content */}
-              <div className="hero-text-content">
-                <h1 className="hero-main-headline">
-                  <span className="text-highlight-blue">Grow Your Business</span><br />
-                  <span className="text-dark-main">with Stride</span>
-                </h1>
-                <p className="hero-sub-text">
-                  Guiding Your Success Journey Through Expertise and Innovation
-                </p>
+            <div className="smart-header-content">
+              <div style={{ display: 'inline-block', background: 'rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '50px', marginBottom: '1.5rem', border: '1px solid rgba(255,255,255,0.1)' }}>
+                <span style={{ fontSize: '0.9rem', color: '#93c5fd', fontWeight: 600 }}>STRIDE INTELLIGENCE</span>
+              </div>
+              <h2 className="smart-main-title">
+                Save Time & Money<br />
+                <span style={{ color: '#60a5fa' }}>On Business Setup</span>
+              </h2>
+              <p className="smart-sub-desc">
+                Discover the most cost-effective freezones, get personalized setup recommendations, and book your license effortlessly with our AI-powered platform.
+              </p>
+              <button className="btn-smart-primary">
+                Start Your Setup Now <span style={{ fontSize: '1.2rem' }}>→</span>
+              </button>
+            </div>
 
-                {/* New CTA Group */}
-                <div className="hero-cta-group">
-                  <div className="hero-input-wrapper">
-                    <span className="input-icon">✉</span>
-                    <input type="email" placeholder="Enter your email to get started" className="hero-email-input" />
-                    <button className="btn-hero-submit">
-                      GET STARTED <span className="arrow-icon">↗</span>
-                    </button>
+            <div className="smart-visual-grid">
+              {/* Left Card: Points/Stats */}
+              <div className="smart-glass-card card-stats-left">
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                  <div>
+                    <div style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 600 }}>Your Setup Savings</div>
+                    <div style={{ fontSize: '0.7rem', color: '#94A3B8' }}>Last Month</div>
+                  </div>
+                  <div style={{ fontSize: '1.5rem', color: '#3b82f6' }}>✨</div>
+                </div>
+                <div className="stats-value">AED 12,500</div>
+                <div className="stats-label">Saved on Licensing</div>
+                <div style={{ marginTop: '1.5rem', padding: '10px', background: '#F1F5F9', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div style={{ width: '32px', height: '32px', background: '#3b82f6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '0.9rem' }}>💎</div>
+                  <div>
+                    <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#1e293b' }}>Next Reward</div>
+                    <div style={{ fontSize: '0.7rem', color: '#64748B' }}>Free Visa at 5 referrals</div>
                   </div>
                 </div>
               </div>
 
-              {/* Right Visual */}
-              <div className="hero-visual-side">
-                {/* Spacer for Grid Layout */}
-                <div style={{ width: '100%', height: '450px' }}></div>
+              {/* Center Card: App Interface */}
+              <div className="card-center-app">
+                <div className="app-header-pill">Stride Smart Search</div>
+                <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                  <div className="app-headline">Scanning 50+<br />Freezones In Real-Time</div>
+                </div>
 
-                {/* Floating Overlay 3D Model */}
-                <div style={{
-                  position: 'absolute',
-                  top: '-20%',
-                  right: '-20%',
-                  width: '140%',
-                  height: '140%',
-                  zIndex: 50,
-                  pointerEvents: 'none'
-                }}>
-                  <Canvas
-                    camera={{ position: [0, 0, 6], fov: 45 }}
-                    style={{ width: '100%', height: '100%', pointerEvents: 'auto' }}
-                  >
-                    <ambientLight intensity={1} />
-                    <spotLight position={[10, 10, 10]} angle={0.2} penumbra={1} intensity={1} />
-                    <pointLight position={[-10, -10, -10]} intensity={0.5} />
-                    <Model />
-                    <ModelInteraction />
-                    <Environment preset="city" />
-                  </Canvas>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginBottom: '2rem' }}>
+                  <div style={{ width: '80px', height: '80px', borderRadius: '50%', border: '6px solid #eff6ff', borderTopColor: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <span style={{ fontSize: '1.5rem', fontWeight: 800, color: '#3b82f6' }}>94%</span>
+                  </div>
+                  <div style={{ textAlign: 'left', maxWidth: '140px', fontSize: '0.9rem', color: '#475569', display: 'flex', alignItems: 'center', lineHeight: 1.4 }}>
+                    Price expected to drop in 3 days 🔥
+                  </div>
+                </div>
+
+                <div className="app-preview-image">
+                  <img src={skyscraper} alt="Scanning" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  {/* Scan Overlay */}
+                  <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: '2px', background: 'rgba(59, 130, 246, 0.8)', boxShadow: '0 0 20px rgba(59, 130, 246, 0.8)', animation: 'scan 2s infinite ease-in-out' }}></div>
+                </div>
+
+                {/* Floating User Review Bubble */}
+                <div className="smart-bubble" style={{ bottom: '30px', right: '-20px' }}>
+                  <div style={{ width: '24px', height: '24px', background: '#cbd5e1', borderRadius: '50%', overflow: 'hidden' }}>
+                    <img src="https://thispersondoesnotexist.com/" alt="" style={{ width: '100%', height: '100%' }} /> {/* Fallback or solid color */}
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '0.7rem', fontWeight: 700 }}>90% Users Satisfied</div>
+                    <div style={{ fontSize: '0.6rem', color: '#64748B' }}>Top 5% setup speed</div>
+                  </div>
                 </div>
               </div>
+
+              {/* Right Card: Deal */}
+              <div className="smart-glass-card card-deal-right">
+                <div style={{ background: 'rgba(255,255,255,0.1)', display: 'inline-flex', padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem', marginBottom: '1.5rem', alignItems: 'center', gap: '6px' }}>
+                  <span>🏷️</span> Best Deal Found
+                </div>
+
+                <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginBottom: '4px' }}>Last Update</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '0.5rem' }}>SPC <span style={{ color: '#60a5fa' }}>➜</span> DUBAI</div>
+                <div style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '1rem', color: '#ffffff' }}>AED 5,750</div>
+                <div className="deal-price" style={{ fontSize: '0.9rem', color: '#94a3b8' }}>Base License Cost</div>
+
+                <div style={{ borderTop: '1px dashed rgba(255,255,255,0.2)', paddingTop: '1rem', marginTop: '1rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' }}>
+                    <div style={{ color: '#94a3b8' }}>Saved 28% Using AI Prediction</div>
+                    <div style={{ fontSize: '1.2rem' }}>✈️</div>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
           </div>
-        </div>
-      </section>
-
-      <div style={{ paddingTop: '0' }}>
-        <section style={{ position: 'relative' }}>
-          <div className="container" style={{ marginTop: '-2rem', position: 'relative', zIndex: 1 }}>
-
-            {/* Bottom Row: Model + Schedule Section */}
-            <div className="hero-bottom-row" ref={bottomRowRef}>
-              {/* Model Section */}
-              <div className="hero-visual-container">
-                <div className="hero-image-frame" style={{ overflow: 'visible', background: 'transparent', boxShadow: 'none', border: 'none', borderRadius: 0 }}>
-                  <div style={{ width: '95%', position: 'relative', perspective: '1000px', transform: 'translateY(50px)' }}>
-                    <>
-                      {SIDE_IMAGES.map((img, index) => (
-                        <img
-                          key={index}
-                          src={img}
-                          alt="Strategic Growth"
-                          style={{
-                            width: '100%',
-                            height: 'auto',
-                            objectFit: 'contain',
-                            position: index === 0 ? 'relative' : 'absolute',
-                            top: 0,
-                            left: 0,
-                            opacity: currentSideImageIndex === index ? 1 : 0,
-                            transform: `rotateY(${currentSideImageIndex === index ? 0 : 90}deg)`,
-                            transition: 'transform 0.25s ease-in-out, opacity 0.25s ease-in-out',
-                            pointerEvents: 'none',
-                            backfaceVisibility: 'hidden',
-                            transformOrigin: 'center'
-                          }}
-                        />
-                      ))}
-                    </>
-
-                    {/* Floating Service Boxes */}
-                    {[
-                      { text: 'Business Setup', icon: '🏢', top: '15%', left: '-5%', delay: '0s' },
-                      { text: 'Visa Services', icon: '📄', top: '30%', right: '-10%', delay: '2s' },
-                      { text: 'License Setup', icon: '🪪', top: '45%', left: '-12%', delay: '4s' },
-                      { text: 'Tax Optimizations', icon: '📊', top: '60%', right: '-4%', delay: '1s' },
-                      { text: 'GCC Expansion', icon: '🌍', top: '75%', left: '0%', delay: '3s' }
-                    ].map((box, i) => (
-                      <div
-                        key={i}
-                        className="floating-glass-box"
-                        style={{
-                          top: box.top,
-                          left: box.left ? box.left : 'auto',
-                          right: box.right ? box.right : 'auto',
-                          animationDelay: box.delay
-                        }}
-                      >
-                        <span style={{ fontSize: '1.2rem', marginRight: '10px' }}>{box.icon}</span>
-                        <span style={{ fontSize: '0.9rem', fontWeight: 600, color: '#1e3a8a' }}>{box.text}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Schedule / Chat Section */}
-              <div className="schedule-section">
-                <div className="schedule-content-grid">
-                  {/* Left Column: Heading + Chat Card */}
-                  {/* Left Column: Mission */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', height: '100%' }}>
-                    {[
-                      {
-                        title: "Mission",
-                        text: "Empowering businesses with strategic insights.",
-                        bg: "#020B1D"
-                      },
-                      {
-                        title: "Strategy",
-                        text: "Seamless setup solutions for global growth.",
-                        bg: "#020B1D"
-                      },
-                      {
-                        title: "Excellence",
-                        text: "Operational excellence to thrive clearly.",
-                        bg: "#020B1D"
-                      }
-                    ].map((item, i) => (
-                      <div key={i} className="schedule-card" style={{
-                        flex: 1,
-                        flexDirection: 'column',
-                        alignItems: 'flex-start',
-                        justifyContent: 'center',
-                        gap: '0.5rem',
-                        padding: '1.5rem',
-                        background: item.bg,
-                        backdropFilter: 'blur(12px)',
-                        WebkitBackdropFilter: 'blur(12px)',
-                        border: '1px solid rgba(255, 255, 255, 0.5)',
-                        borderRadius: '24px', // Explicit radius for smoothness
-                        minHeight: 'auto', // Override CSS min-height
-                        boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.2)',
-                        color: '#FFFFFF',
-                        overflow: 'hidden', // Clip backdrop filter edges
-                        backgroundClip: 'padding-box'
-                      }}>
-                        <div>
-                          <h4 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '0.5rem', fontFamily: 'var(--font-display)' }}>
-                            {item.title}
-                          </h4>
-                          <p style={{ fontSize: '0.8rem', lineHeight: 1.4, color: 'rgba(255, 255, 255, 0.8)', margin: 0 }}>
-                            {item.text}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Right Column: Flipping Vision/Values */}
-                  <div className="schedule-card" style={{ padding: 0, border: 'none', background: 'transparent', minHeight: '300px' }}>
-                    <div className="flip-card-container">
-                      <div className="flip-card-inner">
-                        {/* Front Side */}
-                        <div className="flip-card-front" style={{ textAlign: 'left', alignItems: 'flex-start' }}>
-                          <h3 style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'var(--font-display)', color: 'white' }}>Vision</h3>
-                          <p style={{ fontSize: '0.8rem', lineHeight: 1.4, letterSpacing: '0.3px', margin: 0, fontFamily: 'var(--font-main)', color: 'rgba(255, 255, 255, 0.9)' }}>
-                            Our Vision is to be the leading business setup consultancy in the GCC, empowering entrepreneurs with seamless business solutions that foster growth and success.
-                          </p>
-                        </div>
-                        {/* Back Side */}
-                        <div className="flip-card-back" style={{ textAlign: 'left', alignItems: 'flex-start' }}>
-                          <h3 style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'var(--font-display)', color: '#FFFFFF' }}>Approach</h3>
-                          <p style={{ fontSize: '0.8rem', lineHeight: 1.4, letterSpacing: '0.3px', margin: 0, fontFamily: 'var(--font-main)', color: 'rgba(255, 255, 255, 0.9)' }}>
-                            We combine deep local expertise with global standards to deliver tailored strategies. We prioritize transparency, efficiency, and long-term partnership in every engagement.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Decorative Sparkle Left */}
-            <div style={{ position: 'absolute', left: '0', top: '50%', fontSize: '3rem', color: '#1a1a1a', opacity: 0.1 }}>âœ§</div>
-
-          </div>
-        </section >
+          {/* Decorative Sparkle Left */}
+          <div style={{ position: 'absolute', left: '0', top: '50%', fontSize: '3rem', color: '#1a1a1a', opacity: 0.1 }}>âœ§</div>
+        </section>
 
         {/* SERVICES REDESIGN (Stats & Testimonial) */}
         <section id="case-studies" className="container business-modern-section" style={{ margin: '6rem auto' }}>
@@ -414,7 +311,120 @@ function App() {
             </div>
           </div>
         </section>
+        <section className='newmodel' style={{ position: 'relative', marginTop: '-2rem', zIndex: 5 }}>
+          <div className="container">
+            <div className="hero-bottom-row visible">
 
+              {/* Side Image Transition with Floating Boxes */}
+              <div className="hero-visual-container">
+                <div className="hero-image-frame">
+                  {SIDE_IMAGES.map((img, index) => (
+                    <img
+                      key={index}
+                      src={img}
+                      alt="Side Visual"
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        opacity: currentSideImageIndex === index ? 1 : 0,
+                        transition: 'opacity 1s ease-in-out',
+                        borderRadius: '24px'
+                      }}
+                    />
+                  ))}
+
+                  {/* Floating Glass Boxes */}
+                  <div className="floating-glass-box" style={{ top: '10%', left: '-10%' }}>
+                    <span style={{ fontSize: '1.2rem' }}>🚀</span>
+                    <span>Fast Setup</span>
+                  </div>
+                  <div className="floating-glass-box" style={{ top: '40%', right: '-10%' }}>
+                    <span style={{ fontSize: '1.2rem' }}>💼</span>
+                    <span>100% Ownership</span>
+                  </div>
+                  <div className="floating-glass-box" style={{ bottom: '15%', left: '-5%' }}>
+                    <span style={{ fontSize: '1.2rem' }}>🌍</span>
+                    <span>Global Reach</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Schedule & Vision Section */}
+              <div className="schedule-section">
+                <div className="schedule-section-grid">
+
+                  {/* Card 1: Wide (Vision) */}
+                  <div className="hero-bento-card span-large dark wide" style={{ position: 'relative' }}>
+                    <img src={ceoImage} alt="Vision" className="bento-card-bg-img" style={{ opacity: 0.4 }} />
+                    <div className="bento-overlay"></div>
+                    <div className="bento-card-content">
+                      <div className="bento-icon-circle">🎯</div>
+                      <div>
+                        <div className="bento-title">Our Vision</div>
+                        <div className="bento-subtitle">
+                          To be the global catalyst for entrepreneurial success.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card 2: Narrow (Stats/Action) */}
+                  <div className="hero-bento-card span-small light narrow">
+                    <div className="bento-card-content">
+                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div className="bento-icon-circle" style={{ background: '#e2e8f0', color: '#334155' }}>🚀</div>
+                        <span style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0052CC' }}>48h</span>
+                      </div>
+                      <div>
+                        <div className="bento-title" style={{ fontSize: '1rem' }}>Fast Setup</div>
+                        <div className="bento-subtitle">
+                          License issuance in record time.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card 3: Narrow (Schedule / Planning) */}
+                  <div className="hero-bento-card span-small accent narrow">
+                    <div className="bento-card-content">
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontSize: '0.8rem', opacity: 0.8 }}>Planning</span>
+                        <span style={{ fontSize: '1.2rem' }}>�</span>
+                      </div>
+                      <div style={{ marginTop: 'auto' }}>
+                        <div className="bento-title" style={{ fontSize: '1.1rem' }}>Schedule Meeting</div>
+                        <div style={{ display: 'flex', gap: '4px', marginTop: '8px' }}>
+                          <span style={{ background: 'rgba(255,255,255,0.2)', padding: '2px 6px', borderRadius: '4px', fontSize: '0.7rem' }}>Today</span>
+                          <span style={{ background: 'white', color: '#0052CC', padding: '2px 6px', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 700 }}>Book</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card 4: Wide (Global Reach) */}
+                  <div className="hero-bento-card span-large wide light" style={{ backgroundImage: `url(${globeImg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(241,245,249,0.9), rgba(241,245,249,0.4))', zIndex: 1 }}></div>
+                    <div className="bento-card-content" style={{ position: 'relative', zIndex: 2 }}>
+                      <div className="bento-icon-circle" style={{ background: 'white', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>🌍</div>
+                      <div>
+                        <div className="bento-title" style={{ color: '#0F172A' }}>Global Reach</div>
+                        <div className="bento-subtitle" style={{ color: '#475569' }}>
+                          Connecting businesses across UAE, GCC, and India.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
         {/* hand section / Cost Calculator */}
         <section className="cost-calculator-section">
           {/* Background Image */}
@@ -860,7 +870,7 @@ function App() {
                 <p style={{ marginBottom: '1rem', fontWeight: '500' }}>Get In Touch!</p>
                 <form className="footer-newsletter-pill" onSubmit={(e) => e.preventDefault()}>
                   <input type="email" placeholder="Enter your email" />
-                  <button type="submit">Subscribe</button>
+                  <button type="submit">Send</button>
                 </form>
               </div>
             </div>
@@ -890,9 +900,9 @@ function App() {
               <div className="footer-col-new">
                 <h4>COMPANY</h4>
                 <a href="#">About Us</a>
-                <a href="#">Our Team</a>
-                <a href="#">Careers</a>
-                <a href="#">Blog & Insights</a>
+                <a href="#">Services</a>
+                <a href="#">Packages</a>
+                <a href="#">Contact Us</a>
               </div>
 
               {/* Col 3: Services */}
@@ -936,84 +946,4 @@ function App() {
 
 export default App;
 
-function Model() {
-  const { scene } = useGLTF(modelUrl);
-  return <primitive object={scene} scale={3.5} position={[0, -1, 0]} />;
-}
-useGLTF.preload(modelUrl);
 
-function ModelInteraction() {
-  const controlsRef = useRef();
-  const timeoutRef = useRef(null);
-  const isCorrecting = useRef(false);
-  const startCorrectionTime = useRef(0);
-  const startPolarAngle = useRef(0);
-
-  const handleStart = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    isCorrecting.current = false;
-    // Reset limits to allow full movement during interaction
-    if (controlsRef.current) {
-      controlsRef.current.minPolarAngle = 0;
-      controlsRef.current.maxPolarAngle = Math.PI;
-    }
-  };
-
-  const handleEnd = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => {
-      if (!controlsRef.current) return;
-
-      const currentPolar = controlsRef.current.getPolarAngle();
-      // Target is PI/2 (90 degrees). Check if correction is needed.
-      // We correct if it's deviated by more than 0.1 radians (~5 degrees).
-      if (Math.abs(currentPolar - Math.PI / 2) > 0.1) {
-        startCorrectionTime.current = Date.now();
-        startPolarAngle.current = currentPolar;
-        isCorrecting.current = true;
-      }
-    }, 3000); // 3 seconds of inactivity
-  };
-
-  useFrame(() => {
-    if (isCorrecting.current && controlsRef.current) {
-      const now = Date.now();
-      const duration = 2500; // 2.5 seconds for slow, smooth correction
-      const elapsed = now - startCorrectionTime.current;
-
-      if (elapsed >= duration) {
-        // Snap to exact value at the end
-        controlsRef.current.minPolarAngle = Math.PI / 2;
-        controlsRef.current.maxPolarAngle = Math.PI / 2;
-        isCorrecting.current = false;
-      } else {
-        const t = elapsed / duration;
-        // Ease-in-out cubic interpolation
-        const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
-        const target = Math.PI / 2;
-        const current = startPolarAngle.current + (target - startPolarAngle.current) * ease;
-
-        // Apply correction by constraining the angle
-        controlsRef.current.minPolarAngle = current;
-        controlsRef.current.maxPolarAngle = current;
-      }
-    }
-  });
-
-  return (
-    <OrbitControls
-      ref={controlsRef}
-      onStart={handleStart}
-      onEnd={handleEnd}
-      enableZoom={false}
-      enablePan={false}
-      enableDamping={true}
-      dampingFactor={0.05}
-      autoRotate={true}
-      autoRotateSpeed={2.0}
-      minPolarAngle={0}
-      maxPolarAngle={Math.PI}
-    />
-  );
-}
