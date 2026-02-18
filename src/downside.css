@@ -297,3 +297,121 @@
     height: 20px;
     border-radius: 50%;
 }
+
+/* NAVBAR REDESIGN - PREMIUM GLASS */
+/* NAVBAR REDESIGN - PREMIUM GLASS */
+.hero-inner-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 20px;
+    /* Glass Effect suitable for both dark and light backgrounds */
+    background: rgba(255, 255, 255, 0.01);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 100px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+
+    /* Fixed Positioning */
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1240px;
+    z-index: 1000;
+
+    margin-bottom: 0;
+    transition: all 0.3s ease;
+}
+
+
+
+.navbar-links-center {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .navbar-links-center {
+        display: flex;
+        gap: 2.5rem;
+        align-items: center;
+    }
+}
+
+.navbar-links-center a {
+    color: #0F172A !important;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    position: relative;
+    padding: 4px 0;
+}
+
+.navbar-links-center a:hover {
+    color: #3b82f6 !important;
+}
+
+
+
+.navbar-right-action {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-nav-outline {
+    border: 1px solid rgba(15, 23, 42, 0.2) !important;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    color: #0F172A !important;
+}
+
+.btn-nav-outline:hover {
+    background: #0F172A;
+    color: white !important;
+    border-color: #0F172A !important;
+}
+
+.btn-nav-blue {
+    background: #0052cc;
+    color: white !important;
+    padding: 10px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 82, 204, 0.2);
+}
+
+.btn-nav-blue:hover {
+    background: #0041a3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 82, 204, 0.3);
+}
+
+.navbar-mobile-toggle-dark {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .navbar-mobile-toggle-dark {
+        display: none;
+    }
+}

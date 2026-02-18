@@ -1,9 +1,10 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef, useMemo } from 'react';
 import './index.css';
 import './downside.css';
 import './CostCalculator.css';
 import './hero-bento.css';
-import logo from './assets/images/logo.png';
+import logo from './assets/images/stride_logo.png';
+import logoHero from './assets/images/stride_logo2.png';
 import img1 from './assets/images/1-removebg-preview.png';
 import img2 from './assets/images/2-removebg-preview.png';
 import side1 from './assets/images/side1.png';
@@ -35,6 +36,7 @@ import serviceWeb from './assets/images/services/company website.jpeg';
 import serviceAccount from './assets/images/services/account and bookeeping.jpeg';
 import serviceLiquid from './assets/images/services/company liquidaion.jpeg';
 import globeImg from './assets/images/globe.png';
+import personbg from './assets/images/personbg.png';
 
 import './Marquee.css';
 
@@ -46,6 +48,84 @@ const HERO_IMAGES = [
   { id: 2, src: img2, label: 'Featured Style', fit: 'contain', bg: 'transparent' },
 ];
 
+const HERO_PACKAGES = [
+  { name: 'SPC Freezone', price: '5,750', logo: spcLogo },
+  { name: 'Meydan FZ', price: '12,500', logo: meydanLogo },
+  { name: 'SRTIP', price: '5,500', logo: srtipLogo },
+  { name: 'RAKEZ', price: '5,510', logo: rakezLogo },
+  { name: 'IFZA', price: '7,500', logo: ifzaLogo },
+  { name: 'SHAMS', price: '6,200', logo: shamsLogo },
+];
+
+const RAW_PACKAGES = [
+  {
+    id: 'meydan',
+    name: 'Meydan FZ',
+    label: 'DUBAI TO THE WORLD',
+    logo: meydanLogo,
+    bgImage: meydanBg,
+    priceBase: 12500,
+    priceVisa: 14500,
+    oldPrice: null,
+    features: ['100% Foreign Ownership', 'No Paid Up Capital', 'Prestigious Dubai Address', 'Fast & Easy Setup', 'Bank Account Assistance', 'Flexi Desk Included']
+  },
+  {
+    id: 'spc',
+    name: 'SPC Freezone',
+    label: 'SHARJAH PUBLISHING CITY',
+    logo: spcLogo,
+    bgImage: spcBg,
+    priceBase: 6375,
+    priceVisa: 9275,
+    oldPrice: 8875,
+    features: ['Instant License Issuance', 'Up to 20 Visas Allocation', 'Co-working Space Access', 'Closer to Dubai Airport', 'No NOC Required', 'Multi-Year License Options']
+  },
+  {
+    id: 'srtip',
+    name: 'SRTIP Freezone',
+    label: 'SHARJAH RESEARCH TECH',
+    logo: srtipLogo,
+    bgImage: srtipBg,
+    priceBase: 5500,
+    priceVisa: 7500,
+    oldPrice: 6500,
+    features: ['Innovation Ecosystem', '100% Tax Exemption', 'Academic & Research Access', 'Cost-Effective Setup', 'Wide Activity Range', 'Zero Paid Up Capital']
+  },
+  {
+    id: 'rakez',
+    name: 'RAKEZ',
+    label: 'RAS AL KHAIMAH ZONE',
+    logo: rakezLogo,
+    bgImage: rakezBg,
+    priceBase: 5510,
+    priceVisa: 8010,
+    oldPrice: null,
+    features: ['Industrial & Trading Hub', 'Customizable Warehouses', 'Quick Business Setup', 'Global Market Access', 'Cost-Effective Solution', 'Business Support Services']
+  },
+  {
+    id: 'ifza',
+    name: 'IFZA',
+    label: 'INTERNATIONAL FREEZONE AUTHORITY',
+    logo: ifzaLogo,
+    bgImage: ifzaBg,
+    priceBase: 7500,
+    priceVisa: 9500,
+    oldPrice: null,
+    features: ['100% Foreign Ownership', 'Zero Corporate Tax', 'Flexible Office Solutions', 'Fast License Processing', 'Multi-Currency Accounts', 'Strategic Dubai Location']
+  },
+  {
+    id: 'shams Freezone',
+    name: 'SHAMS Freezone',
+    label: 'SHARJAH MEDIA CITY',
+    logo: shamsLogo,
+    bgImage: shamsBg,
+    priceBase: 6200,
+    priceVisa: 8700,
+    oldPrice: 7500,
+    features: ['Media & Creative Industries', 'Instant License Approval', 'Modern Office Spaces', 'Tax-Free Environment', 'Full Business Ownership', 'Networking Opportunities']
+  }
+];
+
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('credit');
@@ -53,6 +133,45 @@ function App() {
   const [currentSideImageIndex, setCurrentSideImageIndex] = useState(0);
   const [freezoneVisas, setFreezoneVisas] = useState({});
   const [showVisaPrice, setShowVisaPrice] = useState(true);
+  const [currentPkgIndex, setCurrentPkgIndex] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false); // Track scroll for logo switch
+
+  const detailedPackages = useMemo(() => RAW_PACKAGES.map(pkg => ({
+    ...pkg,
+    features: [...pkg.features].sort(() => Math.random() - 0.5)
+  })), []);
+
+  // Scroll Listener for Logo Switch
+  useEffect(() => {
+    const caseStudiesSection = document.getElementById('case-studies');
+    const handleScroll = () => {
+      if (caseStudiesSection) {
+        const switchPoint = caseStudiesSection.offsetTop - 80;
+        setIsScrolled(window.scrollY > switchPoint);
+      } else {
+        // Fallback retry if element wasn't mounted initially
+        const section = document.getElementById('case-studies');
+        if (section) {
+          const switchPoint = section.offsetTop - 80;
+          setIsScrolled(window.scrollY > switchPoint);
+        } else {
+          setIsScrolled(window.scrollY > window.innerHeight);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Package Carousel Effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentPkgIndex((prev) => (prev + 1) % HERO_PACKAGES.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   const toggleVisa = (id) => {
     setFreezoneVisas(prev => ({ ...prev, [id]: !prev[id] }));
@@ -114,55 +233,49 @@ function App() {
 
       {/* Navbar */}
       {/* HERO SECTION (Contained Card Version) */}
+      {/* Navbar Fixed */}
+      <header className="hero-inner-navbar">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => window.scrollTo(0, 0)}>
+          <img src={logoHero} alt="Stride" style={{ width: '120px', height: 'auto', objectFit: 'contain' }} />
+        </div>
+
+        {/* Centered Links */}
+        <nav className="navbar-links-center">
+          <a href="#about" style={{ color: '#0F172A' }}>About Us</a>
+          <a href="#case-studies" style={{ color: '#0F172A' }}>Services</a>
+          <a href="#packages" style={{ color: '#0F172A' }}>Packages</a>
+          <a href="#contact" style={{ color: '#0F172A' }}>Contact Us</a>
+        </nav>
+
+        {/* Right Action */}
+        <div className="navbar-right-action">
+          <a href="#contact" className="btn-nav-blue" style={{ textDecoration: 'none' }}>
+            Book an Appointment
+          </a>
+          <button className="navbar-mobile-toggle-dark" onClick={() => setMobileMenuOpen(true)}>
+            <span style={{ color: '#0F172A', fontSize: '1.5rem' }}>☰</span>
+          </button>
+        </div>
+      </header>
+
       {/* Navbar moved inside Smart Hero Section */}
       <div style={{ paddingTop: '0' }}>
-        <section id="home" className="smart-section-container" ref={bottomRowRef} style={{ marginTop: 0, borderRadius: '0 0 40px 40px', minHeight: '100vh', padding: '2rem 0 6rem 0' }}>
+        <section id="home" className="smart-section-container" ref={bottomRowRef} style={{ marginTop: 0, borderRadius: '0 0 40px 40px', minHeight: '100vh', padding: '8rem 0 6rem 0' }}>
           <div className="smart-bg-stripes"></div>
           <div className="smart-blur-glow" style={{ top: '-10%', left: '20%' }}></div>
           <div className="smart-blur-glow" style={{ bottom: '-10%', right: '20%', background: '#4F46E5', opacity: 0.15 }}></div>
 
           <div className="container" style={{ position: 'relative', zIndex: 10 }}>
-            {/* Navbar Inside Smart Section */}
-            <header className="hero-inner-navbar" style={{ marginBottom: '4rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => window.scrollTo(0, 0)}>
-                <img src={logo} alt="Stride" style={{ width: '40px', height: '40px', objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
-                <span style={{
-                  fontFamily: "'Lexend', sans-serif", fontWeight: 700, fontSize: '1.5rem', letterSpacing: '-0.02em',
-                  color: '#ffffff', lineHeight: 1
-                }}>stride</span>
-              </div>
-
-              {/* Centered Links */}
-              <nav className="navbar-links-center">
-                <a href="#case-studies" style={{ color: 'white' }}>Services</a>
-                <a href="#about" style={{ color: 'white' }}>About Us</a>
-                <a href="#contact" style={{ color: 'white' }}>Contact Us</a>
-              </nav>
-
-              {/* Right Action */}
-              <div className="navbar-right-action">
-                <a href="tel:+18005550123" className="btn-nav-outline" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
-                  (800) 555-0123
-                </a>
-                <button className="navbar-mobile-toggle-dark" onClick={() => setMobileMenuOpen(true)}>
-                  <span style={{ color: '#ffffff', fontSize: '1.5rem' }}>☰</span>
-                </button>
-              </div>
-            </header>
-
             <div className="smart-header-content">
-              <div style={{ display: 'inline-block', background: 'rgba(255,255,255,0.1)', padding: '6px 16px', borderRadius: '50px', marginBottom: '1.5rem', border: '1px solid rgba(255,255,255,0.1)' }}>
-                <span style={{ fontSize: '0.9rem', color: '#93c5fd', fontWeight: 600 }}>STRIDE INTELLIGENCE</span>
-              </div>
+
               <h2 className="smart-main-title">
-                Save Time & Money<br />
-                <span style={{ color: '#60a5fa' }}>On Business Setup</span>
+                Grow Your Business <br />
+                <span style={{ color: '#60a5fa' }}>With Stride</span>
               </h2>
               <p className="smart-sub-desc">
-                Discover the most cost-effective freezones, get personalized setup recommendations, and book your license effortlessly with our AI-powered platform.
-              </p>
+                Identify the right business structure, understand your investment requirements, and move forward with a clear and strategic setup plan.              </p>
               <button className="btn-smart-primary">
-                Start Your Setup Now <span style={{ fontSize: '1.2rem' }}>→</span>
+                Book a Free Consultation <span style={{ fontSize: '1.2rem' }}>→</span>
               </button>
             </div>
 
@@ -171,71 +284,66 @@ function App() {
               <div className="smart-glass-card card-stats-left">
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                   <div>
-                    <div style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 600 }}>Your Setup Savings</div>
-                    <div style={{ fontSize: '0.7rem', color: '#94A3B8' }}>Last Month</div>
+                    <div style={{ fontSize: '1.2rem', color: '#212d3cff', fontWeight: 600 }}>Strategic</div>
+                    <div style={{ fontSize: '1.1rem', color: '#171f2bff' }}>Business Advisory</div>
                   </div>
                   <div style={{ fontSize: '1.5rem', color: '#3b82f6' }}>✨</div>
                 </div>
-                <div className="stats-value">AED 12,500</div>
-                <div className="stats-label">Saved on Licensing</div>
-                <div style={{ marginTop: '1.5rem', padding: '10px', background: '#F1F5F9', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div style={{ width: '32px', height: '32px', background: '#3b82f6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '0.9rem' }}>💎</div>
-                  <div>
-                    <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#1e293b' }}>Next Reward</div>
-                    <div style={{ fontSize: '0.7rem', color: '#64748B' }}>Free Visa at 5 referrals</div>
-                  </div>
-                </div>
+                <div className="stats-value">990+</div>
+                <div className="stats-label">Successful Cases</div>
+                <a href="tel:+18005550123" className="btn-smart-primary" style={{ marginTop: '1.5rem', width: '100%', justifyContent: 'center', textDecoration: 'none' }}>
+                  Call Us Now <span style={{ fontSize: '1.2rem', marginLeft: '8px' }}>→</span>
+                </a>
               </div>
 
               {/* Center Card: App Interface */}
               <div className="card-center-app">
-                <div className="app-header-pill">Stride Smart Search</div>
+
                 <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                  <div className="app-headline">Scanning 50+<br />Freezones In Real-Time</div>
+                  <div className="app-headline">We make it easy for you</div>
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginBottom: '2rem' }}>
                   <div style={{ width: '80px', height: '80px', borderRadius: '50%', border: '6px solid #eff6ff', borderTopColor: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span style={{ fontSize: '1.5rem', fontWeight: 800, color: '#3b82f6' }}>94%</span>
+                    <span style={{ fontSize: '1.5rem', fontWeight: 800, color: '#3b82f6' }}>16+</span>
                   </div>
-                  <div style={{ textAlign: 'left', maxWidth: '140px', fontSize: '0.9rem', color: '#475569', display: 'flex', alignItems: 'center', lineHeight: 1.4 }}>
-                    Price expected to drop in 3 days 🔥
+                  <div style={{ textAlign: 'left', maxWidth: '160px', fontSize: '1.2rem', color: '#475569', display: 'flex', alignItems: 'center', lineHeight: 1.4, fontWeight: '700' }}>
+                    Years of Experience
                   </div>
                 </div>
 
                 <div className="app-preview-image">
-                  <img src={skyscraper} alt="Scanning" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={personbg} alt="Scanning" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   {/* Scan Overlay */}
-                  <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: '2px', background: 'rgba(59, 130, 246, 0.8)', boxShadow: '0 0 20px rgba(59, 130, 246, 0.8)', animation: 'scan 2s infinite ease-in-out' }}></div>
                 </div>
 
-                {/* Floating User Review Bubble */}
-                <div className="smart-bubble" style={{ bottom: '30px', right: '-20px' }}>
-                  <div style={{ width: '24px', height: '24px', background: '#cbd5e1', borderRadius: '50%', overflow: 'hidden' }}>
-                    <img src="https://thispersondoesnotexist.com/" alt="" style={{ width: '100%', height: '100%' }} /> {/* Fallback or solid color */}
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '0.7rem', fontWeight: 700 }}>90% Users Satisfied</div>
-                    <div style={{ fontSize: '0.6rem', color: '#64748B' }}>Top 5% setup speed</div>
-                  </div>
-                </div>
+
               </div>
 
               {/* Right Card: Deal */}
-              <div className="smart-glass-card card-deal-right">
+              <div key={currentPkgIndex} className="smart-glass-card card-deal-right" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
                 <div style={{ background: 'rgba(255,255,255,0.1)', display: 'inline-flex', padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem', marginBottom: '1.5rem', alignItems: 'center', gap: '6px' }}>
                   <span>🏷️</span> Best Deal Found
                 </div>
 
-                <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginBottom: '4px' }}>Last Update</div>
-                <div style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '0.5rem' }}>SPC <span style={{ color: '#60a5fa' }}>➜</span> DUBAI</div>
-                <div style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '1rem', color: '#ffffff' }}>AED 5,750</div>
-                <div className="deal-price" style={{ fontSize: '0.9rem', color: '#94a3b8' }}>Base License Cost</div>
+                <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginBottom: '10px' }}>Featured Package</div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '1rem' }}>
+                  <div style={{ width: '56px', height: '56px', borderRadius: '12px', background: 'white', padding: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <img src={HERO_PACKAGES[currentPkgIndex].logo} alt={HERO_PACKAGES[currentPkgIndex].name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'white', lineHeight: 1.2 }}>
+                      {HERO_PACKAGES[currentPkgIndex].name}
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem', color: '#ffffff' }}>AED {HERO_PACKAGES[currentPkgIndex].price}</div>
+                <div className="deal-price" style={{ fontSize: '0.9rem', color: '#94a3b8' }}>Business Setup Package</div>
 
                 <div style={{ borderTop: '1px dashed rgba(255,255,255,0.2)', paddingTop: '1rem', marginTop: '1rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' }}>
-                    <div style={{ color: '#94a3b8' }}>Saved 28% Using AI Prediction</div>
-                    <div style={{ fontSize: '1.2rem' }}>✈️</div>
                   </div>
                 </div>
               </div>
@@ -252,7 +360,7 @@ function App() {
           <div className="business-modern-grid" ref={businessRef}>
 
             {/* Left Content */}
-            <div className="animate-text-group">
+            <div>
               <span style={{
                 display: 'inline-block',
                 background: '#E0F2FE',
@@ -318,24 +426,39 @@ function App() {
               {/* Side Image Transition with Floating Boxes */}
               <div className="hero-visual-container">
                 <div className="hero-image-frame">
-                  {SIDE_IMAGES.map((img, index) => (
-                    <img
-                      key={index}
-                      src={img}
-                      alt="Side Visual"
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        opacity: currentSideImageIndex === index ? 1 : 0,
-                        transition: 'opacity 1s ease-in-out',
-                        borderRadius: '24px'
-                      }}
-                    />
-                  ))}
+                  {SIDE_IMAGES.map((img, index) => {
+                    const links = ['#about', '#services', '#packages', '#contact'];
+                    return (
+                      <a
+                        key={index}
+                        href={links[index]}
+                        style={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          width: '100%',
+                          height: '100%',
+                          opacity: currentSideImageIndex === index ? 1 : 0,
+                          transition: 'opacity 1s ease-in-out',
+                          borderRadius: '24px',
+                          pointerEvents: currentSideImageIndex === index ? 'auto' : 'none',
+                          zIndex: currentSideImageIndex === index ? 2 : 1,
+                          display: 'block'
+                        }}
+                      >
+                        <img
+                          src={img}
+                          alt="Side Visual"
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            borderRadius: '24px'
+                          }}
+                        />
+                      </a>
+                    )
+                  })}
 
                   {/* Floating Glass Boxes */}
                   <div className="floating-glass-box" style={{ top: '10%', left: '-10%' }}>
@@ -358,48 +481,46 @@ function App() {
                 <div className="schedule-section-grid">
 
                   {/* Card 1: Wide (Vision) */}
-                  <div className="hero-bento-card span-large dark wide" style={{ position: 'relative' }}>
-                    <img src={ceoImage} alt="Vision" className="bento-card-bg-img" style={{ opacity: 0.4 }} />
-                    <div className="bento-overlay"></div>
+                  <div className="hero-bento-card span-large wide" style={{ position: 'relative', background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', color: 'white' }}>
                     <div className="bento-card-content">
-                      <div className="bento-icon-circle">🎯</div>
+                      <div className="bento-icon-circle" style={{ background: 'rgba(255,255,255,0.1)' }}>🎯</div>
                       <div>
-                        <div className="bento-title">Our Vision</div>
-                        <div className="bento-subtitle">
-                          To be the global catalyst for entrepreneurial success.
+                        <div className="bento-title" style={{ fontSize: '1.4rem', marginBottom: '0.5rem' }}>Vision</div>
+                        <div className="bento-subtitle" style={{ fontSize: '0.95rem', lineHeight: 1.5, color: '#e2e8f0' }}>
+                          Our Vision is to be the leading business setup consultancy in the GCC, empowering entrepreneurs with seamless business solutions that foster growth and success.
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Card 2: Narrow (Stats/Action) */}
+                  {/* Card 2: Narrow (Freezone Setup) */}
                   <div className="hero-bento-card span-small light narrow">
                     <div className="bento-card-content">
                       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div className="bento-icon-circle" style={{ background: '#e2e8f0', color: '#334155' }}>🚀</div>
-                        <span style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0052CC' }}>48h</span>
+                        <div className="bento-icon-circle" style={{ background: '#e2e8f0', color: '#334155' }}>✨</div>
+                        <span style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0052CC' }}>100%</span>
                       </div>
                       <div>
-                        <div className="bento-title" style={{ fontSize: '1rem' }}>Fast Setup</div>
+                        <div className="bento-title" style={{ fontSize: '1rem' }}>Freezone Setup</div>
                         <div className="bento-subtitle">
-                          License issuance in record time.
+                          Tax benefits, 100% foreign ownership, and minimal restrictions.
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Card 3: Narrow (Schedule / Planning) */}
+                  {/* Card 3: Narrow (Mainland Setup) */}
                   <div className="hero-bento-card span-small accent narrow">
                     <div className="bento-card-content">
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontSize: '0.8rem', opacity: 0.8 }}>Planning</span>
-                        <span style={{ fontSize: '1.2rem' }}>�</span>
+                        <span style={{ fontSize: '0.8rem', opacity: 0.8 }}>Mainland</span>
+                        <span style={{ fontSize: '1.2rem', background: 'rgba(255,255,255,0.2)', width: '30px', height: '30px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>🏢</span>
                       </div>
                       <div style={{ marginTop: 'auto' }}>
-                        <div className="bento-title" style={{ fontSize: '1.1rem' }}>Schedule Meeting</div>
-                        <div style={{ display: 'flex', gap: '4px', marginTop: '8px' }}>
-                          <span style={{ background: 'rgba(255,255,255,0.2)', padding: '2px 6px', borderRadius: '4px', fontSize: '0.7rem' }}>Today</span>
-                          <span style={{ background: 'white', color: '#0052CC', padding: '2px 6px', borderRadius: '4px', fontSize: '0.7rem', fontWeight: 700 }}>Book</span>
+                        <div className="bento-title" style={{ fontSize: '1.1rem', marginBottom: '0.25rem' }}>Mainland Setup</div>
+                        <div className="bento-subtitle" style={{ color: 'rgba(255,255,255,0.9)', fontSize: '0.8rem', lineHeight: 1.3 }}>
+                          Full ownership solutions with complete market access and legal support.
                         </div>
                       </div>
                     </div>
@@ -467,7 +588,7 @@ function App() {
         </section>
 
         {/* CEO Section */}
-        < section id="products" className="container" style={{ paddingTop: '40px' }}>
+        < section id="about" className="container" style={{ paddingTop: '40px' }}>
 
 
 
@@ -479,17 +600,10 @@ function App() {
                 Fasal Rahman
               </h3>
               <p className="text-muted" style={{ marginBottom: '2rem', lineHeight: 1.6 }}>
-                With 16 years of experience in the business setup
-                industry, Fasal leads the company with a vision for
-                excellence and integrity. His message: "At STRIDE
-                BUSINESS SETUP LLC, we are committed to
-                empowering entrepreneurs with the tools and
-                guidance needed for sustainable success. We believe
-                in providing not just solutions but partnerships built
-                on trust, transparency, and a genuine interest in the
-                long-term growth of our clients. Every decision we
-                make is aimed at ensuring our clients receive
-                exceptional service and unwavering support.
+                With over 16 years of experience in the business setup industry, Fasal Rahman brings strategic insight, regulatory expertise, and decisive leadership to STRIDE BUSINESS SETUP LLC. His approach is rooted in precision, transparency, and delivering practical solutions tailored to each client’s goals.
+                <br />
+
+                Under his direction, STRIDE has supported entrepreneurs and enterprises through complex processes with clarity and efficiency. He leads with a forward-focused vision, ensuring every client benefits from reliable execution and long-term business stability.
               </p>
             </div>
             <div style={{ height: '450px', borderRadius: '16px', overflow: 'hidden' }}>
@@ -508,7 +622,7 @@ function App() {
 
 
         {/* NEW EXTENDED SERVICES SECTION */}
-        < section className="container" style={{ marginBottom: '6rem' }}>
+        < section id="services" className="container" style={{ marginBottom: '6rem' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <h2 className="section-title">Our Services</h2>
             <p className="text-muted">Comprehensive business solutions tailored for your success.</p>
@@ -624,7 +738,7 @@ function App() {
         </div >
 
         {/* FREEZONE PACKAGES SECTION (NEW) */}
-        < section className="freezone-section" >
+        < section id="packages" className="freezone-section" >
           <div className="container">
             <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
               <h2 className="section-title" style={{ marginTop: '1rem' }}>Packages</h2>
@@ -634,74 +748,7 @@ function App() {
             </div>
 
             <div className="freezone-grid">
-              {[
-                {
-                  id: 'meydan',
-                  name: 'Meydan FZ',
-                  label: 'DUBAI TO THE WORLD',
-                  logo: meydanLogo,
-                  bgImage: meydanBg,
-                  priceBase: 12500,
-                  priceVisa: 14500,
-                  oldPrice: null,
-                  features: ['100% Foreign Ownership', 'No Paid Up Capital', 'Prestigious Dubai Address', 'Fast & Easy Setup', 'Bank Account Assistance', 'Flexi Desk Included']
-                },
-                {
-                  id: 'spc',
-                  name: 'SPC Freezone',
-                  label: 'SHARJAH PUBLISHING CITY',
-                  logo: spcLogo,
-                  bgImage: spcBg,
-                  priceBase: 6375,
-                  priceVisa: 9275, // Sample visa price
-                  oldPrice: 8875,
-                  features: ['Instant License Issuance', 'Up to 20 Visas Allocation', 'Co-working Space Access', 'Closer to Dubai Airport', 'No NOC Required', 'Multi-Year License Options']
-                },
-                {
-                  id: 'srtip',
-                  name: 'SRTIP',
-                  label: 'SHARJAH RESEARCH TECH',
-                  logo: srtipLogo,
-                  bgImage: srtipBg,
-                  priceBase: 5500,
-                  priceVisa: 7500,
-                  oldPrice: 6500,
-                  features: ['Innovation Ecosystem', '100% Tax Exemption', 'Academic & Research Access', 'Cost-Effective Setup', 'Wide Activity Range', 'Zero Paid Up Capital']
-                },
-                {
-                  id: 'rakez',
-                  name: 'RAKEZ',
-                  label: 'RAS AL KHAIMAH ZONE',
-                  logo: rakezLogo,
-                  bgImage: rakezBg,
-                  priceBase: 5510,
-                  priceVisa: 8010,
-                  oldPrice: null,
-                  features: ['Industrial & Trading Hub', 'Customizable Warehouses', 'Quick Business Setup', 'Global Market Access', 'Cost-Effective Solution', 'Business Support Services']
-                },
-                {
-                  id: 'ifza',
-                  name: 'IFZA',
-                  label: 'INTERNATIONAL FREEZONE AUTHORITY',
-                  logo: ifzaLogo,
-                  bgImage: ifzaBg,
-                  priceBase: 7500,
-                  priceVisa: 9500,
-                  oldPrice: null,
-                  features: ['100% Foreign Ownership', 'Zero Corporate Tax', 'Flexible Office Solutions', 'Fast License Processing', 'Multi-Currency Accounts', 'Strategic Dubai Location']
-                },
-                {
-                  id: 'shams',
-                  name: 'SHAMS Freezone',
-                  label: 'SHARJAH MEDIA CITY',
-                  logo: shamsLogo,
-                  bgImage: shamsBg,
-                  priceBase: 6200,
-                  priceVisa: 8700,
-                  oldPrice: 7500,
-                  features: ['Media & Creative Industries', 'Instant License Approval', 'Modern Office Spaces', 'Tax-Free Environment', 'Full Business Ownership', 'Networking Opportunities']
-                }
-              ].map((pkg) => (
+              {detailedPackages.map((pkg) => (
                 <div key={pkg.id} className="freezone-card">
                   {/* Left Side */}
                   <div className="freezone-left" style={{
