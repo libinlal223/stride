@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Rocket, BriefcaseBusiness, Globe, Target, Sparkles, Building2, Mail, Phone, MapPin } from 'lucide-react';
+import { Rocket, BriefcaseBusiness, Globe, Target, Sparkles, Building2, Mail, Phone, MapPin, Facebook, Twitter, Instagram } from 'lucide-react';
 import './index.css';
 import './downside.css';
 import './CostCalculator.css';
@@ -18,6 +18,7 @@ import strideMobile from './assets/images/stride_2.png';
 import ceoImage from './assets/images/ceo.png';
 import handBg from './assets/images/handbg.png';
 import heroBg from './assets/images/herobg.png';
+import heroBgMobile from './assets/images/herobg1.png';
 import meydanLogo from './assets/images/packages/mayden.png';
 import spcLogo from './assets/images/packages/spc freezone.jpg';
 import srtipLogo from './assets/images/packages/strip.jpg';
@@ -137,6 +138,8 @@ function App() {
   const [showVisaPrice, setShowVisaPrice] = useState(true);
   const [currentPkgIndex, setCurrentPkgIndex] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false); // Track scroll for logo switch
+  const [selectedCv, setSelectedCv] = useState(null);
+  const fileInputRef = useRef(null);
 
   const detailedPackages = useMemo(() => RAW_PACKAGES.map(pkg => ({
     ...pkg,
@@ -238,13 +241,16 @@ function App() {
       {/* Navbar Fixed */}
       <header className="hero-inner-navbar">
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => window.scrollTo(0, 0)}>
-          <img src={logoHero} alt="Stride" style={{ width: '120px', height: 'auto', objectFit: 'contain' }} />
+          <picture>
+            <source media="(max-width: 1024px)" srcSet={logo} />
+            <img src={logoHero} alt="Stride" style={{ width: '120px', height: 'auto', objectFit: 'contain' }} />
+          </picture>
         </div>
 
         {/* Centered Links */}
         <nav className="navbar-links-center">
-          <a href="#services" style={{ color: '#0F172A' }}>About Us</a>
-          <a href="#business-setup" style={{ color: '#0F172A' }}>Services</a>
+          <a href="#business-setup" style={{ color: '#0F172A' }}>About Us</a>
+          <a href="#services" style={{ color: '#0F172A' }}>Services</a>
           <a href="#packages" style={{ color: '#0F172A' }}>Packages</a>
           <a href="#contact" style={{ color: '#0F172A' }}>Contact Us</a>
         </nav>
@@ -260,8 +266,32 @@ function App() {
         </div>
       </header>
 
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: '#FFFFFF', zIndex: 9999, display: 'flex', flexDirection: 'column',
+          padding: '2rem'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+            <img src={logoHero} alt="Stride" style={{ width: '120px' }} />
+            <button onClick={() => setMobileMenuOpen(false)} style={{ background: 'none', border: 'none', fontSize: '2.5rem', color: '#0F172A', cursor: 'pointer', lineHeight: 1 }}>×</button>
+          </div>
+          <nav style={{ display: 'flex', flexDirection: 'column', gap: '2rem', fontSize: '1.25rem', fontWeight: '600' }}>
+            <a href="#business-setup" onClick={() => setMobileMenuOpen(false)} style={{ color: '#0F172A', textDecoration: 'none', borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem' }}>About Us</a>
+            <a href="#services" onClick={() => setMobileMenuOpen(false)} style={{ color: '#0F172A', textDecoration: 'none', borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem' }}>Services</a>
+            <a href="#packages" onClick={() => setMobileMenuOpen(false)} style={{ color: '#0F172A', textDecoration: 'none', borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem' }}>Packages</a>
+            <a href="#contact" onClick={() => setMobileMenuOpen(false)} style={{ color: '#0F172A', textDecoration: 'none', borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem' }}>Contact Us</a>
+          </nav>
+          <a href="#contact" onClick={() => setMobileMenuOpen(false)} style={{ marginTop: 'auto', background: '#0052CC', color: 'white', padding: '1rem', textAlign: 'center', borderRadius: '50px', textDecoration: 'none', fontWeight: '600' }}>
+            Book an Appointment
+          </a>
+        </div>
+      )}
+
       <div style={{ paddingTop: '0' }}>
-        <section id="home" className="smart-section-container" ref={bottomRowRef} style={{ marginTop: 0, borderRadius: '0 0 40px 40px', padding: '8rem 0 25vw 0', background: `url(${heroBg}) center center / cover no-repeat`, backgroundColor: '#e2e8f0' }}>
+        {/* We use CSS variables to pass the imported image paths to our CSS stylesheet where the media queries handle swapping them */}
+        <section id="home" className="smart-section-container" ref={bottomRowRef} style={{ '--desktop-bg': `url(${heroBg})`, '--mobile-bg': `url(${heroBgMobile})` }}>
           <div className="smart-bg-stripes"></div>
           <div className="smart-blur-glow" style={{ top: '-10%', left: '20%' }}></div>
           <div className="smart-blur-glow" style={{ bottom: '-10%', right: '20%', background: '#4F46E5', opacity: 0.15 }}></div>
@@ -297,10 +327,11 @@ function App() {
 
         {/* SERVICES REDESIGN (Stats & Testimonial) */}
         <section id="business-setup" className="container business-modern-section" style={{ margin: '6rem auto' }}>
+
           <div className="business-modern-grid" ref={businessRef}>
 
-            {/* Left Content */}
-            <div>
+            {/* Left Heading - order 1 on mobile */}
+            <div className="business-heading-area">
               <span style={{
                 display: 'inline-block',
                 background: '#E0F2FE',
@@ -314,30 +345,12 @@ function App() {
                 Premier Consultancy
               </span>
 
-              <h2 className="business-setup-title" style={{ fontFamily: 'var(--font-display)', fontSize: '3rem', marginBottom: '1.5rem' }}>
+              <h2 className="business-setup-title" style={{ fontFamily: 'var(--font-display)', marginBottom: '1rem' }}>
                 Stride Business Setup L.L.C
               </h2>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                <p className="business-setup-desc" style={{ marginBottom: 0, fontSize: '1rem', lineHeight: 1.6, fontFamily: 'var(--font-main)' }}>
-                  We are a leading business consultancy firm specializing in company formation and comprehensive corporate services. With over 16 years of industry expertise, our team delivers strategic guidance and end-to-end support for entrepreneurs and enterprises across the UAE, GCC, and India.
-                </p>
-
-                <p className="business-setup-desc" style={{ marginBottom: 0, fontSize: '1rem', lineHeight: 1.6, fontFamily: 'var(--font-main)' }}>
-                  We simplify the complexities of business setup through personalized solutions, regulatory expertise, and practical insights tailored to each client’s goals. Our commitment is to build long-term partnerships by ensuring efficiency, compliance, and sustainable growth at every stage of your business journey.
-                </p>
-
-
-                {/* Features List */}
-
-
-                <a href="#contact" className="business-cta-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
-                  Get Expert Advisory Support <span style={{ marginLeft: '8px' }}>→</span>
-                </a>
-              </div>
             </div>
 
-            {/* Right Card */}
+            {/* Right Card - order 2 on mobile */}
             <div className="business-image-wrapper">
               {/* Image */}
               <img src={skyscraper} alt="Business Setup" className="business-main-img" />
@@ -353,10 +366,28 @@ function App() {
                 <span style={{ fontSize: '1.5rem', color: '#FFD700' }}>★</span>
                 <div>
                   <div style={{ fontWeight: '700', fontSize: '0.9rem', color: '#0F172A' }}>Top Rated</div>
-                  <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Trust & Quality</div>
+                  <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Trust &amp; Quality</div>
                 </div>
               </div>
             </div>
+
+            {/* Left Body - order 3 on mobile */}
+            <div className="business-body-area">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <p className="business-setup-desc" style={{ marginBottom: 0, fontSize: '1rem', lineHeight: 1.6, fontFamily: 'var(--font-main)' }}>
+                  We are a leading business consultancy firm specializing in company formation and comprehensive corporate services. With over 16 years of industry expertise, our team delivers strategic guidance and end-to-end support for entrepreneurs and enterprises across the UAE, GCC, and India.
+                </p>
+
+                <p className="business-setup-desc" style={{ marginBottom: 0, fontSize: '1rem', lineHeight: 1.6, fontFamily: 'var(--font-main)' }}>
+                  We simplify the complexities of business setup through personalized solutions, regulatory expertise, and practical insights tailored to each client's goals. Our commitment is to build long-term partnerships by ensuring efficiency, compliance, and sustainable growth at every stage of your business journey.
+                </p>
+
+                <a href="#contact" className="business-cta-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
+                  Get Expert Advisory Support <span style={{ marginLeft: '8px' }}>→</span>
+                </a>
+              </div>
+            </div>
+
           </div>
         </section>
         <section className='newmodel' style={{ position: 'relative', marginTop: '-2rem', zIndex: 5 }}>
@@ -552,13 +583,9 @@ function App() {
           </div>
         </section >
 
-        {/* Full Width Banner */}
-        < div style={{ width: '100%', overflow: 'hidden', marginTop: '4rem', marginBottom: '4rem' }}>
-          <picture>
-            <source media="(max-width: 767px)" srcSet={strideMobile} />
-            <img src={strideBanner} alt="Stride Banner" style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }} />
-          </picture>
-        </div >
+        <br />
+        <br />
+        <br />
 
 
         {/* NEW EXTENDED SERVICES SECTION */}
@@ -615,67 +642,6 @@ function App() {
         </section >
 
 
-        {/* TESTIMONIAL MARQUEE */}
-        < div className="marquee-section" >
-          <div className="marquee-container">
-            <div className="marquee-track">
-              {/* Cards */}
-              {[
-                {
-                  text: "STRIDE simplified what seemed complicated. Their professionalism and steady guidance helped us establish our company with confidence and peace of mind.",
-                  name: "AHMAD SEYER",
-                  role: "OWNER, AL JAF PROJECT MANAGEMENT"
-
-                },
-                {
-                  text: "Stride transformed our business operations with their customized strategies. Their team identified key areas for improvement and provided actionable solutions.",
-                  name: "MUHAMMED FARHAN KARIM",
-                  role: "WARDAT AL KAREEM TECHNICAL NOVATIONS"
-                },
-                {
-                  text: "The leadership training provided by Stride has been invaluable. Our team is now more cohesive and motivated, driving the company forward with renewed energy.",
-                  name: "LISA NGUYEN",
-                  role: "COO OF HEALTHYBITES INC."
-                },
-                {
-                  text: "Exceptional service from start to finish. The team at Stride truly understands the intricacies of business setup in the GCC. They handled everything with precision.",
-                  name: "DAVID CHEN",
-                  role: "DIRECTOR AT GLOBAL VENTURES"
-                },
-                // Duplicates for seamless loop
-                {
-                  text: "Working with Stride was a game-changer for us. Their market analysis and insights helped us navigate challenging market conditions and seize new opportunities.",
-                  name: "MICHAEL THOMPSON",
-                  role: "FOUNDER OF ECOGREEN SOLUTIONS"
-                },
-                {
-                  text: "Stride transformed our business operations with their customized strategies. Their team identified key areas for improvement and provided actionable solutions.",
-                  name: "EMMA RODRIGUEZ",
-                  role: "CEO OF TRENDTECH INNOVATIONS"
-                },
-                {
-                  text: "The leadership training provided by Stride has been invaluable. Our team is now more cohesive and motivated, driving the company forward with renewed energy.",
-                  name: "LISA NGUYEN",
-                  role: "COO OF HEALTHYBITES INC."
-                },
-                {
-                  text: "Exceptional service from start to finish. The team at Stride truly understands the intricacies of business setup in the GCC. They handled everything with precision.",
-                  name: "DAVID CHEN",
-                  role: "DIRECTOR AT GLOBAL VENTURES"
-                }
-              ].map((item, i) => (
-                <div key={i} className="testimonial-card-marquee">
-                  <div style={{ fontSize: '3rem', color: '#0052CC', lineHeight: 1, marginBottom: '1rem' }}>"</div>
-                  <p className="testimonial-text">{item.text}</p>
-                  <div className="testimonial-author">
-                    <span className="author-name">{item.name}</span>
-                    <span className="author-role">{item.role}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div >
 
         {/* FREEZONE PACKAGES SECTION (NEW) */}
         < section id="packages" className="freezone-section" >
@@ -764,6 +730,68 @@ function App() {
           </div>
         </section >
 
+        {/* TESTIMONIAL MARQUEE */}
+        < div className="marquee-section" >
+          <div className="marquee-container">
+            <div className="marquee-track">
+              {/* Cards */}
+              {[
+                {
+                  text: "STRIDE simplified what seemed complicated. Their professionalism and steady guidance helped us establish our company with confidence and peace of mind.",
+                  name: "AHMAD SEYER",
+                  role: "OWNER, AL JAF PROJECT MANAGEMENT"
+
+                },
+                {
+                  text: "Stride transformed our business operations with their customized strategies. Their team identified key areas for improvement and provided actionable solutions.",
+                  name: "MUHAMMED FARHAN KARIM",
+                  role: "WARDAT AL KAREEM TECHNICAL NOVATIONS"
+                },
+                {
+                  text: "The leadership training provided by Stride has been invaluable. Our team is now more cohesive and motivated, driving the company forward with renewed energy.",
+                  name: "LISA NGUYEN",
+                  role: "COO OF HEALTHYBITES INC."
+                },
+                {
+                  text: "Exceptional service from start to finish. The team at Stride truly understands the intricacies of business setup in the GCC. They handled everything with precision.",
+                  name: "DAVID CHEN",
+                  role: "DIRECTOR AT GLOBAL VENTURES"
+                },
+                // Duplicates for seamless loop
+                {
+                  text: "Working with Stride was a game-changer for us. Their market analysis and insights helped us navigate challenging market conditions and seize new opportunities.",
+                  name: "MICHAEL THOMPSON",
+                  role: "FOUNDER OF ECOGREEN SOLUTIONS"
+                },
+                {
+                  text: "Stride transformed our business operations with their customized strategies. Their team identified key areas for improvement and provided actionable solutions.",
+                  name: "EMMA RODRIGUEZ",
+                  role: "CEO OF TRENDTECH INNOVATIONS"
+                },
+                {
+                  text: "The leadership training provided by Stride has been invaluable. Our team is now more cohesive and motivated, driving the company forward with renewed energy.",
+                  name: "LISA NGUYEN",
+                  role: "COO OF HEALTHYBITES INC."
+                },
+                {
+                  text: "Exceptional service from start to finish. The team at Stride truly understands the intricacies of business setup in the GCC. They handled everything with precision.",
+                  name: "DAVID CHEN",
+                  role: "DIRECTOR AT GLOBAL VENTURES"
+                }
+              ].map((item, i) => (
+                <div key={i} className="testimonial-card-marquee">
+                  <div style={{ fontSize: '3rem', color: '#0052CC', lineHeight: 1, marginBottom: '1rem' }}>"</div>
+                  <p className="testimonial-text">{item.text}</p>
+                  <div className="testimonial-author">
+                    <span className="author-name">{item.name}</span>
+                    <span className="author-role">{item.role}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div >
+
         {/* FINANCIAL PRODUCTS (Tabs) */}
 
 
@@ -814,7 +842,7 @@ function App() {
           <div className="contact-wrapper">
             <div className="contact-grid">
               <div>
-                <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>Let's Build the Future</h2>
+                <h2 className="section-title" style={{ marginBottom: '1.5rem' }}>Let's Build the Future</h2>
                 <p style={{ fontSize: '1.1rem', opacity: 0.9, marginBottom: '2rem' }}>
                   Kickstart your entrepreneurial journey with Stride Bound Business Setup Services LLC.
                 </p>
@@ -833,11 +861,47 @@ function App() {
                   </div>
                 </div>
               </div>
-              <form onSubmit={(e) => e.preventDefault()}>
-                <input type="text" className="form-input" placeholder="Your Name" />
-                <input type="email" className="form-input" placeholder="Email Address" />
-                <input type="text" className="form-input" placeholder="Company Name" />
-                <textarea className="form-input" rows="4" placeholder="How can we help?"></textarea>
+              <form action="mailto:ccontact@stride.consulting" method="POST" encType="multipart/form-data">
+                <input type="text" name="Name" className="form-input" placeholder="Your Name" required />
+                <input type="email" name="Email" className="form-input" placeholder="Email Address" required />
+                <div style={{ marginBottom: '1rem' }}>
+                  <label style={{ display: 'block', marginBottom: '0.5rem', color: '#94A3B8', fontSize: '0.9rem' }}>Add CV (Optional)</label>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <input
+                      type="file"
+                      name="CV"
+                      className="form-input"
+                      style={{ padding: '0.8rem', margin: 0, flex: 1 }}
+                      accept=".pdf,.doc,.docx"
+                      ref={fileInputRef}
+                      onChange={(e) => setSelectedCv(e.target.files[0])}
+                    />
+                    {selectedCv && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedCv(null);
+                          if (fileInputRef.current) fileInputRef.current.value = "";
+                        }}
+                        style={{
+                          background: 'rgba(239, 68, 68, 0.2)',
+                          color: '#F87171',
+                          border: '1px solid rgba(239, 68, 68, 0.3)',
+                          borderRadius: '6px',
+                          padding: '0.8rem 1rem',
+                          cursor: 'pointer',
+                          fontWeight: '600',
+                          transition: 'all 0.3s ease'
+                        }}
+                        onMouseOver={(e) => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.3)'}
+                        onMouseOut={(e) => e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)'}
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <textarea name="Message" className="form-input" rows="4" placeholder="Enter your message" required></textarea>
                 <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Send Message</button>
               </form>
             </div>
@@ -895,24 +959,26 @@ function App() {
               {/* Col 3: Services */}
               <div className="footer-col-new">
                 <h4>SERVICES</h4>
-                <a href="#">Business Setup</a>
-                <a href="#">PRO Services</a>
-                <a href="#">Bank Account Opening</a>
-                <a href="#">Tax & Accounting</a>
+                <a href="#services">Business Setup</a>
+                <a href="#services">PRO Services</a>
+                <a href="#services">Bank Account Opening</a>
+                <a href="#services">Company Website Development</a>
+                <a href="#services">Accounting & Bookkeeping</a>
+                <a href="#services">Company Liquidation</a>
               </div>
 
               {/* Col 4: Follow Us */}
               <div className="footer-col-new">
                 <h4>FOLLOW US</h4>
                 <div className="social-icons-row">
-                  <a href="#" className="social-icon" aria-label="LinkedIn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                  <a href="#" className="social-icon" aria-label="Facebook">
+                    <Facebook size={20} />
                   </a>
                   <a href="#" className="social-icon" aria-label="Twitter">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg>
+                    <Twitter size={20} />
                   </a>
                   <a href="#" className="social-icon" aria-label="Instagram">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    <Instagram size={20} />
                   </a>
                 </div>
               </div>

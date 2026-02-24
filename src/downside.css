@@ -1,16 +1,32 @@
 /* DOWN HERO / SMART SECTION (Replica of Reference) */
 .smart-section-container {
     position: relative;
-    background: radial-gradient(circle at 50% 0%, #172554 0%, #020617 100%);
+    /* Use the CSS variable passed from inline styles, defaulting desktop first */
+    background: var(--desktop-bg) center center / cover no-repeat;
+    background-color: #1e3a8a;
     /* Deep blue gradient */
-    padding: 5rem 2rem;
+    padding: 8rem 0 25vw 0;
     overflow: hidden;
     color: white;
-    border-radius: 40px;
-    margin-top: -3rem;
+    border-radius: 0 0 40px 40px;
+    margin-top: 0;
     /* maintain overlap if desired */
     z-index: 20;
     box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 1024px) {
+    .smart-section-container {
+        padding: 12rem 0 110vw 0;
+        border-radius: 0 0 20px 20px;
+        /* Swap to mobile background variable when screen is smaller */
+        background: var(--mobile-bg) bottom center / cover no-repeat;
+        background-color: #5c8cd1;
+    }
+
+    .smart-bg-stripes {
+        display: none;
+    }
 }
 
 /* Vertical Stripes Background */
@@ -44,10 +60,16 @@
 
 .smart-main-title {
     font-family: var(--font-display);
-    font-size: 3rem;
+    font-size: 2.5rem;
     line-height: 1.1;
-    margin-bottom: 1.5rem;
+    margin-bottom: 3rem;
     font-weight: 700;
+}
+
+@media (min-width: 768px) {
+    .smart-main-title {
+        font-size: 3rem;
+    }
 }
 
 @media (min-width: 1024px) {
