@@ -1,4 +1,5 @@
 ﻿import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { Rocket, BriefcaseBusiness, Globe, Target, Sparkles, Building2, Mail, Phone, MapPin } from 'lucide-react';
 import './index.css';
 import './downside.css';
 import './CostCalculator.css';
@@ -16,6 +17,7 @@ import strideBanner from './assets/images/stride_1.png';
 import strideMobile from './assets/images/stride_2.png';
 import ceoImage from './assets/images/ceo.png';
 import handBg from './assets/images/handbg.png';
+import heroBg from './assets/images/herobg.png';
 import meydanLogo from './assets/images/packages/mayden.png';
 import spcLogo from './assets/images/packages/spc freezone.jpg';
 import srtipLogo from './assets/images/packages/strip.jpg';
@@ -143,14 +145,14 @@ function App() {
 
   // Scroll Listener for Logo Switch
   useEffect(() => {
-    const caseStudiesSection = document.getElementById('case-studies');
+    const caseStudiesSection = document.getElementById('business-setup');
     const handleScroll = () => {
       if (caseStudiesSection) {
         const switchPoint = caseStudiesSection.offsetTop - 80;
         setIsScrolled(window.scrollY > switchPoint);
       } else {
         // Fallback retry if element wasn't mounted initially
-        const section = document.getElementById('case-studies');
+        const section = document.getElementById('business-setup');
         if (section) {
           const switchPoint = section.offsetTop - 80;
           setIsScrolled(window.scrollY > switchPoint);
@@ -241,8 +243,8 @@ function App() {
 
         {/* Centered Links */}
         <nav className="navbar-links-center">
-          <a href="#about" style={{ color: '#0F172A' }}>About Us</a>
-          <a href="#case-studies" style={{ color: '#0F172A' }}>Services</a>
+          <a href="#services" style={{ color: '#0F172A' }}>About Us</a>
+          <a href="#business-setup" style={{ color: '#0F172A' }}>Services</a>
           <a href="#packages" style={{ color: '#0F172A' }}>Packages</a>
           <a href="#contact" style={{ color: '#0F172A' }}>Contact Us</a>
         </nav>
@@ -258,105 +260,43 @@ function App() {
         </div>
       </header>
 
-      {/* Navbar moved inside Smart Hero Section */}
       <div style={{ paddingTop: '0' }}>
-        <section id="home" className="smart-section-container" ref={bottomRowRef} style={{ marginTop: 0, borderRadius: '0 0 40px 40px', minHeight: '100vh', padding: '8rem 0 6rem 0' }}>
+        <section id="home" className="smart-section-container" ref={bottomRowRef} style={{ marginTop: 0, borderRadius: '0 0 40px 40px', padding: '8rem 0 25vw 0', background: `url(${heroBg}) center center / cover no-repeat`, backgroundColor: '#e2e8f0' }}>
           <div className="smart-bg-stripes"></div>
           <div className="smart-blur-glow" style={{ top: '-10%', left: '20%' }}></div>
           <div className="smart-blur-glow" style={{ bottom: '-10%', right: '20%', background: '#4F46E5', opacity: 0.15 }}></div>
 
           <div className="container" style={{ position: 'relative', zIndex: 10 }}>
             <div className="smart-header-content">
-
-              <h2 className="smart-main-title">
+              <br>
+              </br>
+              <br />
+              <h2 className="smart-main-title" style={{ color: '#FFFFFF' }}>
                 Grow Your Business <br />
-                <span style={{ color: '#60a5fa' }}>With Stride</span>
+                <span style={{ color: '#0052CC', fontWeight: '800' }}>With Stride</span>
               </h2>
-              <p className="smart-sub-desc">
-                Identify the right business structure, understand your investment requirements, and move forward with a clear and strategic setup plan.              </p>
               <button className="btn-smart-primary">
                 Book a Free Consultation <span style={{ fontSize: '1.2rem' }}>→</span>
               </button>
             </div>
 
             <div className="smart-visual-grid">
-              {/* Left Card: Points/Stats */}
-              <div className="smart-glass-card card-stats-left">
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                  <div>
-                    <div style={{ fontSize: '1.2rem', color: '#212d3cff', fontWeight: 600 }}>Strategic</div>
-                    <div style={{ fontSize: '1.1rem', color: '#171f2bff' }}>Business Advisory</div>
-                  </div>
-                  <div style={{ fontSize: '1.5rem', color: '#3b82f6' }}>✨</div>
-                </div>
-                <div className="stats-value">990+</div>
-                <div className="stats-label">Successful Cases</div>
-                <a href="tel:+18005550123" className="btn-smart-primary" style={{ marginTop: '1.5rem', width: '100%', justifyContent: 'center', textDecoration: 'none' }}>
-                  Call Us Now <span style={{ fontSize: '1.2rem', marginLeft: '8px' }}>→</span>
-                </a>
-              </div>
+
 
               {/* Center Card: App Interface */}
-              <div className="card-center-app">
-
-                <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                  <div className="app-headline">We make it easy for you</div>
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginBottom: '2rem' }}>
-                  <div style={{ width: '80px', height: '80px', borderRadius: '50%', border: '6px solid #eff6ff', borderTopColor: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span style={{ fontSize: '1.5rem', fontWeight: 800, color: '#3b82f6' }}>16+</span>
-                  </div>
-                  <div style={{ textAlign: 'left', maxWidth: '160px', fontSize: '1.2rem', color: '#475569', display: 'flex', alignItems: 'center', lineHeight: 1.4, fontWeight: '700' }}>
-                    Years of Experience
-                  </div>
-                </div>
-
-                <div className="app-preview-image">
-                  <img src={personbg} alt="Scanning" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  {/* Scan Overlay */}
-                </div>
 
 
-              </div>
 
               {/* Right Card: Deal */}
-              <div key={currentPkgIndex} className="smart-glass-card card-deal-right" style={{ animation: 'fadeIn 0.5s ease-in-out' }}>
-                <div style={{ background: 'rgba(255,255,255,0.1)', display: 'inline-flex', padding: '4px 12px', borderRadius: '20px', fontSize: '0.75rem', marginBottom: '1.5rem', alignItems: 'center', gap: '6px' }}>
-                  <span>🏷️</span> Best Deal Found
-                </div>
 
-                <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginBottom: '10px' }}>Featured Package</div>
-
-                <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '1rem' }}>
-                  <div style={{ width: '56px', height: '56px', borderRadius: '12px', background: 'white', padding: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <img src={HERO_PACKAGES[currentPkgIndex].logo} alt={HERO_PACKAGES[currentPkgIndex].name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'white', lineHeight: 1.2 }}>
-                      {HERO_PACKAGES[currentPkgIndex].name}
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem', color: '#ffffff' }}>AED {HERO_PACKAGES[currentPkgIndex].price}</div>
-                <div className="deal-price" style={{ fontSize: '0.9rem', color: '#94a3b8' }}>Business Setup Package</div>
-
-                <div style={{ borderTop: '1px dashed rgba(255,255,255,0.2)', paddingTop: '1rem', marginTop: '1rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' }}>
-                  </div>
-                </div>
-              </div>
 
             </div>
 
           </div>
-          {/* Decorative Sparkle Left */}
-          <div style={{ position: 'absolute', left: '0', top: '50%', fontSize: '3rem', color: '#1a1a1a', opacity: 0.1 }}>âœ§</div>
         </section>
 
         {/* SERVICES REDESIGN (Stats & Testimonial) */}
-        <section id="case-studies" className="container business-modern-section" style={{ margin: '6rem auto' }}>
+        <section id="business-setup" className="container business-modern-section" style={{ margin: '6rem auto' }}>
           <div className="business-modern-grid" ref={businessRef}>
 
             {/* Left Content */}
@@ -427,7 +367,7 @@ function App() {
               <div className="hero-visual-container">
                 <div className="hero-image-frame">
                   {SIDE_IMAGES.map((img, index) => {
-                    const links = ['#about', '#services', '#packages', '#contact'];
+                    const links = ['#services', '#business-setup', '#packages', '#contact'];
                     return (
                       <a
                         key={index}
@@ -462,15 +402,15 @@ function App() {
 
                   {/* Floating Glass Boxes */}
                   <div className="floating-glass-box" style={{ top: '10%', left: '-10%' }}>
-                    <span style={{ fontSize: '1.2rem' }}>🚀</span>
+                    <Rocket size={18} color="#0052CC" />
                     <span>Fast Setup</span>
                   </div>
                   <div className="floating-glass-box" style={{ top: '40%', right: '-10%' }}>
-                    <span style={{ fontSize: '1.2rem' }}>💼</span>
+                    <BriefcaseBusiness size={18} color="#0052CC" />
                     <span>100% Ownership</span>
                   </div>
                   <div className="floating-glass-box" style={{ bottom: '15%', left: '-5%' }}>
-                    <span style={{ fontSize: '1.2rem' }}>🌍</span>
+                    <Globe size={18} color="#0052CC" />
                     <span>Global Reach</span>
                   </div>
                 </div>
@@ -483,7 +423,7 @@ function App() {
                   {/* Card 1: Wide (Vision) */}
                   <div className="hero-bento-card span-large wide" style={{ position: 'relative', background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', color: 'white' }}>
                     <div className="bento-card-content">
-                      <div className="bento-icon-circle" style={{ background: 'rgba(255,255,255,0.1)' }}>🎯</div>
+                      <div className="bento-icon-circle" style={{ background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Target size={24} color="#e2e8f0" /></div>
                       <div>
                         <div className="bento-title" style={{ fontSize: '1.4rem', marginBottom: '0.5rem' }}>Vision</div>
                         <div className="bento-subtitle" style={{ fontSize: '0.95rem', lineHeight: 1.5, color: '#e2e8f0' }}>
@@ -497,7 +437,7 @@ function App() {
                   <div className="hero-bento-card span-small light narrow">
                     <div className="bento-card-content">
                       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div className="bento-icon-circle" style={{ background: '#e2e8f0', color: '#334155' }}>✨</div>
+                        <div className="bento-icon-circle" style={{ background: '#e2e8f0', color: '#334155', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Sparkles size={24} /></div>
                         <span style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0052CC' }}>100%</span>
                       </div>
                       <div>
@@ -515,7 +455,7 @@ function App() {
                     <div className="bento-card-content">
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span style={{ fontSize: '0.8rem', opacity: 0.8 }}>Mainland</span>
-                        <span style={{ fontSize: '1.2rem', background: 'rgba(255,255,255,0.2)', width: '30px', height: '30px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>🏢</span>
+                        <span style={{ background: 'rgba(255,255,255,0.2)', width: '30px', height: '30px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Building2 size={16} color="white" /></span>
                       </div>
                       <div style={{ marginTop: 'auto' }}>
                         <div className="bento-title" style={{ fontSize: '1.1rem', marginBottom: '0.25rem' }}>Mainland Setup</div>
@@ -530,7 +470,7 @@ function App() {
                   <div className="hero-bento-card span-large wide light" style={{ backgroundImage: `url(${globeImg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                     <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(241,245,249,0.9), rgba(241,245,249,0.4))', zIndex: 1 }}></div>
                     <div className="bento-card-content" style={{ position: 'relative', zIndex: 2 }}>
-                      <div className="bento-icon-circle" style={{ background: 'white', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>🌍</div>
+                      <div className="bento-icon-circle" style={{ background: 'white', boxShadow: '0 4px 10px rgba(0,0,0,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Globe size={24} color="#0052CC" /></div>
                       <div>
                         <div className="bento-title" style={{ color: '#0F172A' }}>Global Reach</div>
                         <div className="bento-subtitle" style={{ color: '#475569' }}>
@@ -588,7 +528,7 @@ function App() {
         </section>
 
         {/* CEO Section */}
-        < section id="about" className="container" style={{ paddingTop: '40px' }}>
+        < section id="ceo" className="container" style={{ paddingTop: '40px' }}>
 
 
 
@@ -880,15 +820,15 @@ function App() {
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    <span style={{ fontSize: '1.5rem', color: '#0052CC' }}>📧</span>
+                    <Mail size={24} color="#0052CC" />
                     <span>ccontact@stride.consulting</span>
                   </div>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    <span style={{ fontSize: '1.5rem', color: '#0052CC' }}>☎️</span>
+                    <Phone size={24} color="#0052CC" />
                     <span>+1 (800) 555-0123</span>
                   </div>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    <span style={{ fontSize: '1.5rem', color: '#0052CC' }}>🏢</span>
+                    <Building2 size={24} color="#0052CC" />
                     <span>101 Stride Tower, New York, NY</span>
                   </div>
                 </div>
@@ -929,16 +869,16 @@ function App() {
               {/* Col 1: Contact Information */}
               <div className="footer-col-new">
                 <h4>CONTACT INFORMATION</h4>
-                <div className="contact-row">
-                  <span className="icon">📧</span>
+                <div className="contact-row" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <Mail size={16} />
                   <span>contact@stride.consulting</span>
                 </div>
-                <div className="contact-row">
-                  <span className="icon">📞</span>
+                <div className="contact-row" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <Phone size={16} />
                   <span>+971 4 123 4567</span>
                 </div>
-                <div className="contact-row">
-                  <span className="icon">📍</span>
+                <div className="contact-row" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <MapPin size={16} />
                   <span>101 Stride Tower, Dubai</span>
                 </div>
               </div>
