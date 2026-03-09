@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Rocket, BriefcaseBusiness, Globe, Target, Sparkles, Building2, Mail, Phone, MapPin, Facebook, Twitter, Instagram } from 'lucide-react';
+import { Rocket, BriefcaseBusiness, Globe, Target, Sparkles, Building2, Mail, Phone, MapPin, Facebook, Twitter, Instagram, MessageCircle } from 'lucide-react';
 import './index.css';
 import './downside.css';
 import './CostCalculator.css';
@@ -40,6 +40,8 @@ import serviceAccount from './assets/images/services/account and bookeeping.jpeg
 import serviceLiquid from './assets/images/services/company liquidaion.jpeg';
 import globeImg from './assets/images/globe.png';
 import personbg from './assets/images/personbg.png';
+import goldenvisaBg from './assets/images/goldenvisa.png';
+import goldenvisaDesktopBg from './assets/images/goldenvisa1.png';
 
 import './Marquee.css';
 
@@ -68,9 +70,9 @@ const RAW_PACKAGES = [
     logo: meydanLogo,
     bgImage: meydanBg,
     priceBase: 12500,
-    priceVisa: 14500,
+    priceVisa: 20595,
     oldPrice: null,
-    features: ['100% Foreign Ownership', 'No Paid Up Capital', 'Prestigious Dubai Address', 'Fast & Easy Setup', 'Bank Account Assistance', 'Flexi Desk Included']
+    features: ['100% Ownership', 'No NOC Required', 'Exclusive Dubai Govt. Initiated Freezone', 'Set Up an Office in Mainland with NOC', 'Trade Name Will Be Issued with the Suffix LLC Fz', 'Multiple Activity Groups',]
   },
   {
     id: 'spc',
@@ -79,9 +81,9 @@ const RAW_PACKAGES = [
     logo: spcLogo,
     bgImage: spcBg,
     priceBase: 6375,
-    priceVisa: 9275,
-    oldPrice: 8875,
-    features: ['Instant License Issuance', 'Up to 20 Visas Allocation', 'Co-working Space Access', 'Closer to Dubai Airport', 'No NOC Required', 'Multi-Year License Options']
+    priceVisa: 14490,
+    oldPrice: null,
+    features: ['100% ownership', 'Can add multiple shareholders', 'Can add upto 5 activities', 'Change of status', 'Can add multiple shareholders', 'E channel Registration']
   },
   {
     id: 'srtip',
@@ -89,10 +91,10 @@ const RAW_PACKAGES = [
     label: 'SHARJAH RESEARCH TECH',
     logo: srtipLogo,
     bgImage: srtipBg,
-    priceBase: 5500,
-    priceVisa: 7500,
-    oldPrice: 6500,
-    features: ['Innovation Ecosystem', '100% Tax Exemption', 'Academic & Research Access', 'Cost-Effective Setup', 'Wide Activity Range', 'Zero Paid Up Capital']
+    priceBase: 5000,
+    priceVisa: 12400,
+    oldPrice: null,
+    features: ['Free Digital Banking', '100%  Ownership', 'Multiple Activities', 'Multiple Shareholders', 'Wide Activity Range', 'Free Digital Banking']
   },
   {
     id: 'rakez',
@@ -101,9 +103,9 @@ const RAW_PACKAGES = [
     logo: rakezLogo,
     bgImage: rakezBg,
     priceBase: 5510,
-    priceVisa: 8010,
+    priceVisa: 12010,
     oldPrice: null,
-    features: ['Industrial & Trading Hub', 'Customizable Warehouses', 'Quick Business Setup', 'Global Market Access', 'Cost-Effective Solution', 'Business Support Services']
+    features: ['100% Ownership', 'Multiple shareholders', 'Multiple activities', '1 year License', 'Emirates ID', 'Payment in installments']
   },
   {
     id: 'ifza',
@@ -111,10 +113,10 @@ const RAW_PACKAGES = [
     label: 'INTERNATIONAL FREEZONE AUTHORITY',
     logo: ifzaLogo,
     bgImage: ifzaBg,
-    priceBase: 7500,
-    priceVisa: 9500,
+    priceBase: 12400,
+    priceVisa: 23495,
     oldPrice: null,
-    features: ['100% Foreign Ownership', 'Zero Corporate Tax', 'Flexible Office Solutions', 'Fast License Processing', 'Multi-Currency Accounts', 'Strategic Dubai Location']
+    features: ['100% Ownership', 'Dubai Freezone', 'Free Activity Consultation', 'Trade License Cost', 'Lowest Cost Dubai Freezone', 'No NOC Required']
   },
   {
     id: 'shams Freezone',
@@ -122,10 +124,43 @@ const RAW_PACKAGES = [
     label: 'SHARJAH MEDIA CITY',
     logo: shamsLogo,
     bgImage: shamsBg,
-    priceBase: 6200,
-    priceVisa: 8700,
-    oldPrice: 7500,
-    features: ['Media & Creative Industries', 'Instant License Approval', 'Modern Office Spaces', 'Tax-Free Environment', 'Full Business Ownership', 'Networking Opportunities']
+    priceBase: 5750,
+    priceVisa: 12600,
+    oldPrice: null,
+    features: ['100% Ownership', 'Trade Name Will Be Issued With Suffix LLC', '5 Activities', 'Companies Will Be Limited Liability', 'Full Business Ownership', 'Networking Opportunities']
+  }
+];
+
+const TESTIMONIALS = [
+  {
+    text: "STRIDE simplified what seemed complicated. Their professionalism and steady guidance helped us establish our company with confidence and peace of mind.",
+    name: "AHMAD SEYER",
+    role: "OWNER, AL JAF PROJECT MANAGEMENT"
+  },
+  {
+    text: "Stride transformed our business operations with their customized strategies. Their team identified key areas for improvement and provided actionable solutions.",
+    name: "MUHAMMED FARHAN KARIM",
+    role: "WARDAT AL KAREEM TECHNICAL NOVATIONS"
+  },
+  {
+    text: "STRIDE played a key role in streamlining our business foundation. Their structured approach, transparency, and constant support made the entire process smooth and reliable. We were able to move forward with clarity and confidence.",
+    name: "MOHAMMED RIYAZ",
+    role: "Owner, Sparein Automotive LLC"
+  },
+  {
+    text: "Exceptional service from start to finish. The team at Stride truly understands the intricacies of business setup. They handled everything with precision.",
+    name: "MUHAMMAD BASIL",
+    role: "Owner, Automedia – Videographer & Photographer"
+  },
+  {
+    text: "Working with Stride was a game-changer for us. Their market analysis and insights helped us navigate challenging market conditions and seize new opportunities.",
+    name: "YUSUF MUHAMMED KHAN",
+    role: "Owner, compass sky foodstuff trading L.L.C"
+  },
+  {
+    text: "Stride transformed our business operations with their customized strategies. Their team identified key areas for improvement and provided actionable solutions.",
+    name: "JAISON THOMAS",
+    role: "Owner, Rapid 3D Printing L.L.C"
   }
 ];
 
@@ -257,7 +292,7 @@ function App() {
 
         {/* Right Action */}
         <div className="navbar-right-action">
-          <a href="#contact" className="btn-nav-blue" style={{ textDecoration: 'none' }}>
+          <a href="tel:+971501072044" className="btn-nav-blue" style={{ textDecoration: 'none' }}>
             Book an Appointment
           </a>
           <button className="navbar-mobile-toggle-dark" onClick={() => setMobileMenuOpen(true)}>
@@ -283,7 +318,7 @@ function App() {
             <a href="#packages" onClick={() => setMobileMenuOpen(false)} style={{ color: '#0F172A', textDecoration: 'none', borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem' }}>Packages</a>
             <a href="#contact" onClick={() => setMobileMenuOpen(false)} style={{ color: '#0F172A', textDecoration: 'none', borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem' }}>Contact Us</a>
           </nav>
-          <a href="#contact" onClick={() => setMobileMenuOpen(false)} style={{ marginTop: 'auto', background: '#0052CC', color: 'white', padding: '1rem', textAlign: 'center', borderRadius: '50px', textDecoration: 'none', fontWeight: '600' }}>
+          <a href="tel:+971501072044" onClick={() => setMobileMenuOpen(false)} style={{ marginTop: 'auto', background: '#0052CC', color: 'white', padding: '1rem', textAlign: 'center', borderRadius: '50px', textDecoration: 'none', fontWeight: '600' }}>
             Book an Appointment
           </a>
         </div>
@@ -305,7 +340,10 @@ function App() {
                 Grow Your Business <br />
                 <span style={{ color: '#0052CC', fontWeight: '800' }}>With Stride</span>
               </h2>
-              <button className="btn-smart-primary">
+              <button
+                className="btn-smart-primary"
+                onClick={() => window.open('https://wa.me/971501072044?text=Hello,%20I%20would%20like%20to%20book%20a%20consultation%20with%20Stride.%20Please%20share%20the%20details.', '_blank')}
+              >
                 Book a Free Consultation <span style={{ fontSize: '1.2rem' }}>→</span>
               </button>
             </div>
@@ -382,7 +420,7 @@ function App() {
                   We simplify the complexities of business setup through personalized solutions, regulatory expertise, and practical insights tailored to each client's goals. Our commitment is to build long-term partnerships by ensuring efficiency, compliance, and sustainable growth at every stage of your business journey.
                 </p>
 
-                <a href="#contact" className="business-cta-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
+                <a target="_blank" rel="noopener noreferrer" href="https://wa.me/971501072044?text=Hello,%20I%20would%20like%20to%20get%20expert%20advisory%20support%20from%20Stride.%20Could%20you%20please%20provide%20more%20details" className="business-cta-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
                   Get Expert Advisory Support <span style={{ marginLeft: '8px' }}>→</span>
                 </a>
               </div>
@@ -550,9 +588,9 @@ function App() {
 
                 <p className="cost-calc-desc">
                   Get a clear estimate of your business setup costs across the UAE, GCC, and India. Plan confidently with accurate and transparent insights.                </p>
-                <button className="btn btn-dark-pill cost-calc-btn">
-                  contact now<span>→</span>
-                </button>
+                <a href="tel:+9710501072044" className="btn btn-dark-pill cost-calc-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
+                  contact now<span style={{ marginLeft: '8px' }}>→</span>
+                </a>
               </div>
             </div>
           </div>
@@ -728,57 +766,107 @@ function App() {
               ))}
             </div>
           </div>
+
         </section >
+        <br />
+        <br />
+        <br />
+        <br /><br /><br />
+        <section id="goldenvisa" style={{
+          position: 'relative',
+          width: '100%',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          lineHeight: 0,
+          fontSize: 0
+        }}>
+          {/* Background Image using <picture> to switch based on viewport width */}
+          <picture className="goldenvisa-crop" style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+            <source media="(min-width: 1024px)" srcSet={goldenvisaDesktopBg} />
+            <img
+              src={goldenvisaBg}
+              alt="Golden Visa"
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block',
+                objectFit: 'cover',
+                verticalAlign: 'bottom'
+              }}
+            />
+          </picture>
+
+          {/* Dark overlay for better text contrast */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.2))',
+            zIndex: 1
+          }}></div>
+
+          {/* Content Wrapper */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 2,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '2rem',
+            lineHeight: 'normal',
+            fontSize: '1rem'
+          }}>
+            <div style={{ maxWidth: '1200px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+              <h2 style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(3rem, 8vw, 5rem)',
+                color: '#fff',
+                marginBottom: '1rem',
+                textShadow: '0 4px 12px rgba(0,0,0,0.5)',
+                textTransform: 'uppercase',
+                letterSpacing: '2px',
+                fontWeight: '700'
+              }}>
+                <span style={{ color: '#FFD700' }}>Golden</span> Visa
+              </h2>
+              <p className="goldenvisa-desc" style={{
+                color: '#f8fafc',
+                marginBottom: '2.5rem',
+                maxWidth: '600px',
+                textAlign: 'left',
+                textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+              }}>
+                Secure your future with the prestigious 10-year residency program. Unlock exclusive benefits for you and your family.
+              </p>
+              <a
+                href="https://wa.me/971501072044?text=Hello,%20I%E2%80%99m%20interested%20in%20applying%20for%20the%20UAE%20Golden%20Visa.%20Could%20you%20please%20provide%20more%20details%20about%20the%20eligibility%20and%20process"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="business-cta-btn" style={{
+                  background: 'linear-gradient(135deg, #FFD700 0%, #D4AF37 100%)',
+                  color: '#0F172A',
+                  border: 'none',
+                  padding: '16px 40px',
+                  fontSize: '1.1rem',
+                  textDecoration: 'none',
+                  boxShadow: '0 8px 24px rgba(212, 175, 55, 0.4)',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+                }}>
+                Register Now
+              </a>
+            </div>
+          </div>
+        </section>
+
 
         {/* TESTIMONIAL MARQUEE */}
         < div className="marquee-section" >
           <div className="marquee-container">
             <div className="marquee-track">
               {/* Cards */}
-              {[
-                {
-                  text: "STRIDE simplified what seemed complicated. Their professionalism and steady guidance helped us establish our company with confidence and peace of mind.",
-                  name: "AHMAD SEYER",
-                  role: "OWNER, AL JAF PROJECT MANAGEMENT"
-
-                },
-                {
-                  text: "Stride transformed our business operations with their customized strategies. Their team identified key areas for improvement and provided actionable solutions.",
-                  name: "MUHAMMED FARHAN KARIM",
-                  role: "WARDAT AL KAREEM TECHNICAL NOVATIONS"
-                },
-                {
-                  text: "The leadership training provided by Stride has been invaluable. Our team is now more cohesive and motivated, driving the company forward with renewed energy.",
-                  name: "LISA NGUYEN",
-                  role: "COO OF HEALTHYBITES INC."
-                },
-                {
-                  text: "Exceptional service from start to finish. The team at Stride truly understands the intricacies of business setup in the GCC. They handled everything with precision.",
-                  name: "DAVID CHEN",
-                  role: "DIRECTOR AT GLOBAL VENTURES"
-                },
-                // Duplicates for seamless loop
-                {
-                  text: "Working with Stride was a game-changer for us. Their market analysis and insights helped us navigate challenging market conditions and seize new opportunities.",
-                  name: "MICHAEL THOMPSON",
-                  role: "FOUNDER OF ECOGREEN SOLUTIONS"
-                },
-                {
-                  text: "Stride transformed our business operations with their customized strategies. Their team identified key areas for improvement and provided actionable solutions.",
-                  name: "EMMA RODRIGUEZ",
-                  role: "CEO OF TRENDTECH INNOVATIONS"
-                },
-                {
-                  text: "The leadership training provided by Stride has been invaluable. Our team is now more cohesive and motivated, driving the company forward with renewed energy.",
-                  name: "LISA NGUYEN",
-                  role: "COO OF HEALTHYBITES INC."
-                },
-                {
-                  text: "Exceptional service from start to finish. The team at Stride truly understands the intricacies of business setup in the GCC. They handled everything with precision.",
-                  name: "DAVID CHEN",
-                  role: "DIRECTOR AT GLOBAL VENTURES"
-                }
-              ].map((item, i) => (
+              {[...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS].map((item, i) => (
                 <div key={i} className="testimonial-card-marquee">
                   <div style={{ fontSize: '3rem', color: '#0052CC', lineHeight: 1, marginBottom: '1rem' }}>"</div>
                   <p className="testimonial-text">{item.text}</p>
@@ -849,19 +937,19 @@ function App() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     <Mail size={24} color="#0052CC" />
-                    <span>ccontact@stride.consulting</span>
+                    <span>strideboundbss@gmail.com</span>
                   </div>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     <Phone size={24} color="#0052CC" />
-                    <span>+1 (800) 555-0123</span>
+                    <span>+971 0501072044</span>
                   </div>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     <Building2 size={24} color="#0052CC" />
-                    <span>101 Stride Tower, New York, NY</span>
+                    <span>stride business llc</span>
                   </div>
                 </div>
               </div>
-              <form action="mailto:ccontact@stride.consulting" method="POST" encType="multipart/form-data">
+              <form action="https://formsubmit.co/strideboundbss@gmail.com" method="POST" encType="multipart/form-data">
                 <input type="text" name="Name" className="form-input" placeholder="Your Name" required />
                 <input type="email" name="Email" className="form-input" placeholder="Email Address" required />
                 <div style={{ marginBottom: '1rem' }}>
@@ -919,8 +1007,14 @@ function App() {
               </div>
               <div className="footer-newsletter-wrapper">
                 <p style={{ marginBottom: '1rem', fontWeight: '500' }}>Get In Touch!</p>
-                <form className="footer-newsletter-pill" onSubmit={(e) => e.preventDefault()}>
-                  <input type="email" placeholder="Enter your email" />
+                <form className="footer-newsletter-pill" onSubmit={(e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.target);
+                  const email = formData.get('email');
+                  const body = `Hi Stride Team,%0D%0A%0D%0APlease get in touch with me at: ${email}`;
+                  window.location.href = `mailto:strideboundbss@gmail.com?subject=Get in Touch Request&body=${body}`;
+                }}>
+                  <input type="email" name="email" placeholder="Enter your email" required />
                   <button type="submit">Send</button>
                 </form>
               </div>
@@ -935,25 +1029,25 @@ function App() {
                 <h4>CONTACT INFORMATION</h4>
                 <div className="contact-row" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <Mail size={16} />
-                  <span>contact@stride.consulting</span>
+                  <span>strideboundbss@gmail.com</span>
                 </div>
                 <div className="contact-row" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <Phone size={16} />
-                  <span>+971 4 123 4567</span>
+                  <span>+971 0501072044</span>
                 </div>
                 <div className="contact-row" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <MapPin size={16} />
-                  <span>101 Stride Tower, Dubai</span>
+                  <span>stride business llc</span>
                 </div>
               </div>
 
               {/* Col 2: Company */}
               <div className="footer-col-new">
                 <h4>COMPANY</h4>
-                <a href="#">About Us</a>
-                <a href="#">Services</a>
-                <a href="#">Packages</a>
-                <a href="#">Contact Us</a>
+                <a href="#business-setup">About Us</a>
+                <a href="#services">Services</a>
+                <a href="#packages">Packages</a>
+                <a href="#contact">Contact Us</a>
               </div>
 
               {/* Col 3: Services */}
@@ -987,11 +1081,32 @@ function App() {
             {/* Bottom Section */}
             <div className="footer-bottom-new">
               <div className="footer-divider-line" style={{ margin: '2rem 0' }}></div>
-              <p>© 2026 Stride Business Setup. All rights reserved.</p>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+                <p style={{ margin: 0 }}>© 2026 Stride Business Setup. All rights reserved.</p>
+                <a href="https://www.instagram.com/intellex.web?igsh=MXc4Z2Uwd243OHpqdA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'inherit', textDecoration: 'none', opacity: 0.7, transition: 'opacity 0.2s' }} onMouseOver={(e) => e.currentTarget.style.opacity = '1'} onMouseOut={(e) => e.currentTarget.style.opacity = '0.7'}>
+                  <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Meet the Developers</span>
+                  <Instagram size={14} />
+                </a>
+              </div>
             </div>
           </div>
         </footer>
 
+        {/* Floating Contact Box */}
+        <div className={`floating-contact-box ${isScrolled ? 'visible' : ''}`}>
+          <p className="floating-contact-title">Get Expert Guidance to Start Your Business</p>
+          <a href="#contact" className="floating-btn floating-btn-primary">
+            Enquire Now
+          </a>
+          <div className="floating-actions-row">
+            <a href="https://wa.me/971501072044?text=Hello,%20I%20need%20expert%20guidance%20to%20start%20my%20business." target="_blank" rel="noopener noreferrer" className="floating-btn floating-btn-whatsapp" title="WhatsApp Us">
+              <MessageCircle size={18} />
+            </a>
+            <a href="tel:+9710501072044" className="floating-btn floating-btn-call" title="Call Us">
+              <Phone size={18} />
+            </a>
+          </div>
+        </div>
       </div >
     </div >
   );
