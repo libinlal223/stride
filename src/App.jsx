@@ -145,7 +145,7 @@ const TESTIMONIALS = [
   {
     text: "STRIDE played a key role in streamlining our business foundation. Their structured approach, transparency, and constant support made the entire process smooth and reliable. We were able to move forward with clarity and confidence.",
     name: "MOHAMMED RIYAZ",
-    role: "Owner, Sparein Automotive LLC"
+    role: "CEO, Sparein Automotive LLC"
   },
   {
     text: "Exceptional service from start to finish. The team at Stride truly understands the intricacies of business setup. They handled everything with precision.",
@@ -932,7 +932,7 @@ function App() {
               <div>
                 <h2 className="section-title" style={{ marginBottom: '1.5rem' }}>Let's Build the Future</h2>
                 <p style={{ fontSize: '1.1rem', opacity: 0.9, marginBottom: '2rem' }}>
-                  Kickstart your entrepreneurial journey with Stride Bound Business Setup Services LLC.
+                  Kickstart your entrepreneurial journey with Stride Business Setup Services LLC.
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
@@ -941,7 +941,7 @@ function App() {
                   </div>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     <Phone size={24} color="#0052CC" />
-                    <span>+971 0501072044</span>
+                    <span>+971 501072044</span>
                   </div>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     <Building2 size={24} color="#0052CC" />
@@ -1033,7 +1033,7 @@ function App() {
                 </div>
                 <div className="contact-row" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <Phone size={16} />
-                  <span>+971 0501072044</span>
+                  <span>+971 501072044</span>
                 </div>
                 <div className="contact-row" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <MapPin size={16} />
@@ -1102,7 +1102,7 @@ function App() {
             <a href="https://wa.me/971501072044?text=Hello,%20I%20need%20expert%20guidance%20to%20start%20my%20business." target="_blank" rel="noopener noreferrer" className="floating-btn floating-btn-whatsapp" title="WhatsApp Us">
               <MessageCircle size={18} />
             </a>
-            <a href="tel:+9710501072044" className="floating-btn floating-btn-call" title="Call Us">
+            <a href="tel:+971501072044" className="floating-btn floating-btn-call" title="Call Us">
               <Phone size={18} />
             </a>
           </div>
