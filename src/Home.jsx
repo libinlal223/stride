@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Rocket, BriefcaseBusiness, Globe, Target, Sparkles, Building2, Mail, Phone, MapPin, Facebook, Twitter, Instagram, MessageCircle } from 'lucide-react';
 import './index.css';
 import './downside.css';
@@ -6,15 +6,11 @@ import './CostCalculator.css';
 import './hero-bento.css';
 import logo from './assets/images/stride_logo.png';
 import logoHero from './assets/images/stride_logo2.png';
-import img1 from './assets/images/1-removebg-preview.png';
-import img2 from './assets/images/2-removebg-preview.png';
 import side1 from './assets/images/side1.png';
 import side2 from './assets/images/side2.png';
 import side3 from './assets/images/side3.png';
 import side4 from './assets/images/side4.png';
 import skyscraper from './assets/images/skyscraper box.png';
-import strideBanner from './assets/images/stride_1.png';
-import strideMobile from './assets/images/stride_2.png';
 import ceoImage from './assets/images/ceo.png';
 import handBg from './assets/images/handbg.png';
 import heroBg from './assets/images/herobg.png';
@@ -39,7 +35,6 @@ import serviceWeb from './assets/images/services/company website.jpeg';
 import serviceAccount from './assets/images/services/account and bookeeping.jpeg';
 import serviceLiquid from './assets/images/services/company liquidaion.jpeg';
 import globeImg from './assets/images/globe.png';
-import personbg from './assets/images/personbg.png';
 import goldenvisaBg from './assets/images/goldenvisa.png';
 import goldenvisaDesktopBg from './assets/images/goldenvisa1.png';
 
@@ -47,20 +42,7 @@ import './Marquee.css';
 
 const SIDE_IMAGES = [side1, side2, side3, side4];
 
-// Updated Images for Wide Hero
-const HERO_IMAGES = [
-  { id: 1, src: img1, label: 'Model Showcase', fit: 'contain', bg: 'transparent' },
-  { id: 2, src: img2, label: 'Featured Style', fit: 'contain', bg: 'transparent' },
-];
 
-const HERO_PACKAGES = [
-  { name: 'SPC Freezone', price: '5,750', logo: spcLogo },
-  { name: 'Meydan FZ', price: '12,500', logo: meydanLogo },
-  { name: 'SRTIP', price: '5,500', logo: srtipLogo },
-  { name: 'RAKEZ', price: '5,510', logo: rakezLogo },
-  { name: 'IFZA', price: '7,500', logo: ifzaLogo },
-  { name: 'SHAMS', price: '6,200', logo: shamsLogo },
-];
 
 const RAW_PACKAGES = [
   {
@@ -135,12 +117,12 @@ const TESTIMONIALS = [
   {
     text: "STRIDE simplified what seemed complicated. Their professionalism and steady guidance helped us establish our company with confidence and peace of mind.",
     name: "AHMAD SEYER",
-    role: "OWNER, AL JAF PROJECT MANAGEMENT"
+    role: "CEO, AL JAF PROJECT MANAGEMENT"
   },
   {
     text: "Stride transformed our business operations with their customized strategies. Their team identified key areas for improvement and provided actionable solutions.",
     name: "MUHAMMED FARHAN KARIM",
-    role: "WARDAT AL KAREEM TECHNICAL NOVATIONS"
+    role: "CEO, WARDAT AL KAREEM TECHNICAL NOVATIONS"
   },
   {
     text: "STRIDE played a key role in streamlining our business foundation. Their structured approach, transparency, and constant support made the entire process smooth and reliable. We were able to move forward with clarity and confidence.",
@@ -150,28 +132,24 @@ const TESTIMONIALS = [
   {
     text: "Exceptional service from start to finish. The team at Stride truly understands the intricacies of business setup. They handled everything with precision.",
     name: "MUHAMMAD BASIL",
-    role: "Owner, Automedia – Videographer & Photographer"
+    role: "CEO, Automedia – Videographer & Photographer"
   },
   {
     text: "Working with Stride was a game-changer for us. Their market analysis and insights helped us navigate challenging market conditions and seize new opportunities.",
     name: "YUSUF MUHAMMED KHAN",
-    role: "Owner, compass sky foodstuff trading L.L.C"
+    role: "CEO, compass sky foodstuff trading L.L.C"
   },
   {
     text: "Stride transformed our business operations with their customized strategies. Their team identified key areas for improvement and provided actionable solutions.",
     name: "JAISON THOMAS",
-    role: "Owner, Rapid 3D Printing L.L.C"
+    role: "CEO, Rapid 3D Printing L.L.C"
   }
 ];
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('credit');
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentSideImageIndex, setCurrentSideImageIndex] = useState(0);
-  const [freezoneVisas, setFreezoneVisas] = useState({});
   const [showVisaPrice, setShowVisaPrice] = useState(true);
-  const [currentPkgIndex, setCurrentPkgIndex] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false); // Track scroll for logo switch
   const [selectedCv, setSelectedCv] = useState(null);
   const fileInputRef = useRef(null);
@@ -205,32 +183,11 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Package Carousel Effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentPkgIndex((prev) => (prev + 1) % HERO_PACKAGES.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const toggleVisa = (id) => {
-    setFreezoneVisas(prev => ({ ...prev, [id]: !prev[id] }));
-  };
-
   // Auto-cycle between with visa and without visa prices
   useEffect(() => {
     const interval = setInterval(() => {
       setShowVisaPrice(prev => !prev);
     }, 3000); // Toggle every 3 seconds
-    return () => clearInterval(interval);
-  }, []);
-
-
-  // Image Loop
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
-    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
@@ -295,7 +252,7 @@ function App() {
           <a href="tel:+971501072044" className="btn-nav-blue" style={{ textDecoration: 'none' }}>
             Book an Appointment
           </a>
-          <button className="navbar-mobile-toggle-dark" onClick={() => setMobileMenuOpen(true)}>
+          <button className="navbar-mobile-toggle-dark" aria-label="Toggle mobile menu" onClick={() => setMobileMenuOpen(true)}>
             <span style={{ color: '#0F172A', fontSize: '1.5rem' }}>☰</span>
           </button>
         </div>
@@ -310,7 +267,7 @@ function App() {
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
             <img src={logoHero} alt="Stride" style={{ width: '120px' }} />
-            <button onClick={() => setMobileMenuOpen(false)} style={{ background: 'none', border: 'none', fontSize: '2.5rem', color: '#0F172A', cursor: 'pointer', lineHeight: 1 }}>×</button>
+            <button aria-label="Close mobile menu" onClick={() => setMobileMenuOpen(false)} style={{ background: 'none', border: 'none', fontSize: '2.5rem', color: '#0F172A', cursor: 'pointer', lineHeight: 1 }}>×</button>
           </div>
           <nav style={{ display: 'flex', flexDirection: 'column', gap: '2rem', fontSize: '1.25rem', fontWeight: '600' }}>
             <a href="#business-setup" onClick={() => setMobileMenuOpen(false)} style={{ color: '#0F172A', textDecoration: 'none', borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem' }}>About Us</a>
@@ -391,7 +348,7 @@ function App() {
             {/* Right Card - order 2 on mobile */}
             <div className="business-image-wrapper">
               {/* Image */}
-              <img src={skyscraper} alt="Business Setup" className="business-main-img" />
+              <img src={skyscraper} loading="lazy" alt="Business Setup" className="business-main-img" />
 
               {/* Floating Badge */}
               <div className="experience-badge">
@@ -471,15 +428,15 @@ function App() {
 
                   {/* Floating Glass Boxes */}
                   <div className="floating-glass-box" style={{ top: '10%', left: '-10%' }}>
-                    <Rocket size={18} color="#0052CC" />
+                    <Rocket size={18} color="#0052CC" aria-hidden="true" />
                     <span>Fast Setup</span>
                   </div>
                   <div className="floating-glass-box" style={{ top: '40%', right: '-10%' }}>
-                    <BriefcaseBusiness size={18} color="#0052CC" />
+                    <BriefcaseBusiness size={18} color="#0052CC" aria-hidden="true" />
                     <span>100% Ownership</span>
                   </div>
                   <div className="floating-glass-box" style={{ bottom: '15%', left: '-5%' }}>
-                    <Globe size={18} color="#0052CC" />
+                    <Globe size={18} color="#0052CC" aria-hidden="true" />
                     <span>Global Reach</span>
                   </div>
                 </div>
@@ -561,6 +518,7 @@ function App() {
           <img
             src={handBg}
             alt="Hand Background"
+            loading="lazy"
             className="cost-calculator-bg-img"
           />
 
@@ -616,7 +574,7 @@ function App() {
               </p>
             </div>
             <div style={{ height: '450px', borderRadius: '16px', overflow: 'hidden' }}>
-              <img src={ceoImage} alt="Fasal Rahman" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+              <img src={ceoImage} loading="lazy" alt="Fasal Rahman" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
             </div>
           </div>
         </section >
@@ -668,7 +626,7 @@ function App() {
             ].map((service, index) => (
               <div key={index} className="service-modern-card">
                 <div className="service-modern-image">
-                  <img src={service.image} alt={service.title} />
+                  <img src={service.image} loading="lazy" alt={service.title} />
                 </div>
                 <div className="service-modern-content">
                   <h3 className="service-modern-title">{service.title}</h3>
@@ -720,7 +678,7 @@ function App() {
                       height: '100%'
                     }}>
                       <div className="freezone-logo-box">
-                        <img src={pkg.logo} alt={pkg.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                        <img src={pkg.logo} loading="lazy" alt={pkg.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                       </div>
                       <div className="freezone-title">{pkg.name}</div>
                       <div className="freezone-label">{pkg.label}</div>
@@ -788,6 +746,7 @@ function App() {
             <img
               src={goldenvisaBg}
               alt="Golden Visa"
+              loading="lazy"
               style={{
                 width: '100%',
                 height: 'auto',
@@ -880,14 +839,11 @@ function App() {
           </div>
         </div >
 
-        {/* FINANCIAL PRODUCTS (Tabs) */}
-
-
         {/* FEATURES GRID / RESOURCES */}
         <section id="resources" className="resources-section">
           {/* Background Image */}
           <div className="resources-bg-wrapper">
-            <img src={globeImg} alt="Global Network" className="resources-bg-img" />
+            <img src={globeImg} loading="lazy" alt="Global Network" className="resources-bg-img" />
             <div className="resources-overlay"></div>
           </div>
 
@@ -920,11 +876,6 @@ function App() {
           </div>
         </section>
 
-        {/* PACKAGES (PRICING) */}
-        < section id="pricing" className="container" >
-
-        </section >
-
         {/* CONTACT SECTION */}
         < section id="contact" className="container" >
           <div className="contact-wrapper">
@@ -945,7 +896,12 @@ function App() {
                   </div>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     <Building2 size={24} color="#0052CC" />
-                    <span>stride business llc</span>
+                    <span>
+                      Stride Business Setup<br />
+                      M08, Al Owais Building,<br />
+                      Abu Hail Street, Al Khabaisi- Deira<br />
+                      Dubai , UAE
+                    </span>
                   </div>
                 </div>
               </div>
@@ -1037,7 +993,12 @@ function App() {
                 </div>
                 <div className="contact-row" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <MapPin size={16} />
-                  <span>stride business llc</span>
+                  <span>
+                    Stride Business Setup<br />
+                    M08, Al Owais Building,<br />
+                    Abu Hail Street, Al Khabaisi- Deira<br />
+                    Dubai , UAE
+                  </span>
                 </div>
               </div>
 
