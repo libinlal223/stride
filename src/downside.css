@@ -1,16 +1,13 @@
 /* DOWN HERO / SMART SECTION (Replica of Reference) */
 .smart-section-container {
     position: relative;
-    /* Use the CSS variable passed from inline styles, defaulting desktop first */
-    background: var(--desktop-bg) center center / cover no-repeat;
+    /* Background color shows instantly while the hero <img> loads */
     background-color: #1e3a8a;
-    /* Deep blue gradient */
     padding: 8rem 0 25vw 0;
     overflow: hidden;
     color: white;
     border-radius: 0 0 40px 40px;
     margin-top: 0;
-    /* maintain overlap if desired */
     z-index: 20;
     box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.2);
 }
@@ -19,8 +16,6 @@
     .smart-section-container {
         padding: 12rem 0 110vw 0;
         border-radius: 0 0 20px 20px;
-        /* Swap to mobile background variable when screen is smaller */
-        background: var(--mobile-bg) bottom center / cover no-repeat;
         background-color: #5c8cd1;
     }
 

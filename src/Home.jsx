@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Rocket, BriefcaseBusiness, Globe, Target, Sparkles, Building2, Mail, Phone, MapPin, Facebook, Twitter, Instagram, MessageCircle } from 'lucide-react';
+import { Rocket, BriefcaseBusiness, Globe, Target, Sparkles, Building2, Mail, Phone, MapPin, Facebook, Linkedin, Instagram, MessageCircle } from 'lucide-react';
 import './index.css';
 import './downside.css';
 import './CostCalculator.css';
@@ -282,16 +282,34 @@ function App() {
       )}
 
       <div style={{ paddingTop: '0' }}>
-        {/* We use CSS variables to pass the imported image paths to our CSS stylesheet where the media queries handle swapping them */}
-        <section id="home" className="smart-section-container" ref={bottomRowRef} style={{ '--desktop-bg': `url(${heroBg})`, '--mobile-bg': `url(${heroBgMobile})` }}>
+        {/* Hero section — img tag used instead of CSS background for fastest LCP */}
+        <section id="home" className="smart-section-container" ref={bottomRowRef}>
+          {/* Hero background image — fetchpriority=high tells the browser to load this before everything else */}
+          <picture style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+            <source media="(max-width: 1024px)" srcSet={heroBgMobile} />
+            <img
+              src={heroBg}
+              alt=""
+              aria-hidden="true"
+              fetchPriority="high"
+              decoding="sync"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'center',
+                display: 'block'
+              }}
+            />
+          </picture>
+
           <div className="smart-bg-stripes"></div>
           <div className="smart-blur-glow" style={{ top: '-10%', left: '20%' }}></div>
           <div className="smart-blur-glow" style={{ bottom: '-10%', right: '20%', background: '#4F46E5', opacity: 0.15 }}></div>
 
           <div className="container" style={{ position: 'relative', zIndex: 10 }}>
             <div className="smart-header-content">
-              <br>
-              </br>
+              <br />
               <br />
               <h2 className="smart-main-title" style={{ color: '#FFFFFF' }}>
                 Grow Your Business <br />
@@ -306,15 +324,8 @@ function App() {
             </div>
 
             <div className="smart-visual-grid">
-
-
               {/* Center Card: App Interface */}
-
-
-
               {/* Right Card: Deal */}
-
-
             </div>
 
           </div>
@@ -888,7 +899,7 @@ function App() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     <Mail size={24} color="#0052CC" />
-                    <span>strideboundbss@gmail.com</span>
+                    <span>info@stride-business.com</span>
                   </div>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     <Phone size={24} color="#0052CC" />
@@ -905,7 +916,7 @@ function App() {
                   </div>
                 </div>
               </div>
-              <form action="https://formsubmit.co/strideboundbss@gmail.com" method="POST" encType="multipart/form-data">
+              <form action="https://formsubmit.co/info@stride-business.com" method="POST" encType="multipart/form-data">
                 <input type="text" name="Name" className="form-input" placeholder="Your Name" required />
                 <input type="email" name="Email" className="form-input" placeholder="Email Address" required />
                 <div style={{ marginBottom: '1rem' }}>
@@ -968,7 +979,7 @@ function App() {
                   const formData = new FormData(e.target);
                   const email = formData.get('email');
                   const body = `Hi Stride Team,%0D%0A%0D%0APlease get in touch with me at: ${email}`;
-                  window.location.href = `mailto:strideboundbss@gmail.com?subject=Get in Touch Request&body=${body}`;
+                  window.location.href = `mailto:info@stride-business.com?subject=Get in Touch Request&body=${body}`;
                 }}>
                   <input type="email" name="email" placeholder="Enter your email" required />
                   <button type="submit">Send</button>
@@ -985,7 +996,7 @@ function App() {
                 <h4>CONTACT INFORMATION</h4>
                 <div className="contact-row" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <Mail size={16} />
-                  <span>strideboundbss@gmail.com</span>
+                  <span>info@stride-business.com</span>
                 </div>
                 <div className="contact-row" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <Phone size={16} />
@@ -1026,13 +1037,13 @@ function App() {
               <div className="footer-col-new">
                 <h4>FOLLOW US</h4>
                 <div className="social-icons-row">
-                  <a href="#" className="social-icon" aria-label="Facebook">
+                  <a href="https://facebook.com" className="social-icon" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
                     <Facebook size={20} />
                   </a>
-                  <a href="#" className="social-icon" aria-label="Twitter">
-                    <Twitter size={20} />
+                  <a href="https://linkedin.com" className="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <Linkedin size={20} />
                   </a>
-                  <a href="#" className="social-icon" aria-label="Instagram">
+                  <a href="https://www.instagram.com/stride_bbs?igsh=MWxvNmZ1aWkya3owag==" className="social-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                     <Instagram size={20} />
                   </a>
                 </div>

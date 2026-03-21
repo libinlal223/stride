@@ -17,7 +17,7 @@ export default function SEOLayout({ title, description, keywords, currentUrl, st
       "streetAddress": "M08, Al Owais Building, Abu Hail Street, Al Khabaisi"
     },
     "telephone": "+971501072044",
-    "email": "strideboundbss@gmail.com"
+    "email": "info@stride-business.com"
   };
 
   // Combine schemas
