@@ -166,18 +166,20 @@ function App() {
   useEffect(() => {
     const caseStudiesSection = document.getElementById('business-setup');
     const handleScroll = () => {
+      const caseStudiesSection = document.getElementById('business-setup');
+      const footer = document.querySelector('.premium-footer');
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      // Threshold to hide when near the footer (adjust 300 based on footer height)
+      const isNearFooter = (scrollPosition + windowHeight) > (documentHeight - 600);
+
       if (caseStudiesSection) {
         const switchPoint = caseStudiesSection.offsetTop - 80;
-        setIsScrolled(window.scrollY > switchPoint);
+        setIsScrolled(scrollPosition > switchPoint && !isNearFooter);
       } else {
-        // Fallback retry if element wasn't mounted initially
-        const section = document.getElementById('business-setup');
-        if (section) {
-          const switchPoint = section.offsetTop - 80;
-          setIsScrolled(window.scrollY > switchPoint);
-        } else {
-          setIsScrolled(window.scrollY > window.innerHeight);
-        }
+        setIsScrolled(scrollPosition > windowHeight && !isNearFooter);
       }
     };
 
