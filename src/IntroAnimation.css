@@ -2,13 +2,13 @@
 .intro-overlay {
     position: fixed;
     inset: 0;
-    background-color: #001f4d;
-    /* Dark blue background */
+    background: linear-gradient(135deg, #020B1D 0%, #001A3D 50%, #002D66 100%);
+    /* Matches the hero background's lighting exactly */
     z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.5s ease 3s;
+    transition: opacity 1.0s ease;
 }
 
 .intro-overlay.fade-out {
@@ -21,73 +21,49 @@
     display: flex;
     align-items: center;
     gap: 16px;
+    z-index: 10000;
     /* Start centered */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    /* Use a more cinematic, smoother quintic easing */
+    transition: all 1.4s cubic-bezier(0.85, 0, 0.15, 1);
+    will-change: top, left, transform;
 }
 
 /* When moving to navbar position */
 .intro-content.move-to-nav {
-    top: 50px;
-    /* Center of 100px header */
-    left: 88px;
-    /* 32px padding + 40px logo + 16px gap */
-    transform: translate(0, -50%);
+    top: 45px; 
+    left: 8%; 
+    transform: translate(0, -50%); 
 }
 
-.intro-logo {
-    width: 80px;
-    height: 80px;
+.intro-logo-main {
+    width: 120px; /* Fixed base size for layout stability */
+    height: auto;
     object-fit: contain;
     opacity: 0;
-    transform: scale(0.8);
-    animation: logoFadeIn 0.6s ease forwards;
+    /* Starting large via transform scale for GPU acceleration and smoothness */
+    transform: scale(2.5); 
+    animation: logoFadeIn 0.8s ease forwards;
+    transition: transform 1.4s cubic-bezier(0.85, 0, 0.15, 1);
+    will-change: transform;
 }
 
 @keyframes logoFadeIn {
     to {
         opacity: 1;
-        transform: scale(1);
+        /* Keep scale(2.5) during fade-in phase */
+        transform: scale(2.5);
     }
 }
 
-.intro-content.move-to-nav .intro-logo {
-    width: 40px;
-    height: 40px;
+.intro-content.move-to-nav .intro-logo-main {
+    transform: scale(1); /* Smoothly shrinks to navbar size */
 }
 
 .intro-text {
-    font-family: 'Lexend', sans-serif;
-    font-weight: 700;
-    font-size: 4rem;
-    letter-spacing: -0.05em;
-    color: white;
-    line-height: 1;
-    white-space: nowrap;
-    /* Start hidden to the right */
-    opacity: 0;
-    transform: translateX(100px);
-}
-
-/* Text pan-in animation */
-.intro-text.pan-in {
-    animation: textPanIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    animation-delay: 0.6s;
-    /* Start after logo appears */
-}
-
-@keyframes textPanIn {
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.intro-content.move-to-nav .intro-text {
-    font-size: 2rem;
-    /* Navbar size */
+    display: none;
 }
 
 /* Main content fade in */

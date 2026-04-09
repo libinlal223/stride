@@ -1,8 +1,8 @@
 /* DOWN HERO / SMART SECTION (Replica of Reference) */
 .smart-section-container {
     position: relative;
-    /* Background color shows instantly while the hero <img> loads */
-    background-color: #1e3a8a;
+    /* Smooth gradient that matches the hero image tones for better perceived performance */
+    background: linear-gradient(135deg, #020B1D 0%, #001A3D 50%, #002D66 100%);
     padding: 8rem 0 25vw 0;
     overflow: hidden;
     color: white;
@@ -16,7 +16,7 @@
     .smart-section-container {
         padding: 12rem 0 110vw 0;
         border-radius: 0 0 20px 20px;
-        background-color: #5c8cd1;
+        background: linear-gradient(180deg, #020B1D 0%, #002D66 100%);
     }
 
     .smart-bg-stripes {

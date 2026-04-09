@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Rocket, BriefcaseBusiness, Globe, Target, Sparkles, Building2, Mail, Phone, MapPin, Facebook, Linkedin, Instagram, MessageCircle } from 'lucide-react';
 import './index.css';
 import './downside.css';
+import './IntroAnimation.css';
 import './CostCalculator.css';
 import './hero-bento.css';
 import logo from './assets/images/stride_logo.png';
@@ -148,9 +149,11 @@ const TESTIMONIALS = [
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [introPhase, setIntroPhase] = useState('centered'); // 'centered', 'moving', 'finished'
   const [currentSideImageIndex, setCurrentSideImageIndex] = useState(0);
   const [showVisaPrice, setShowVisaPrice] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false); // Track scroll for logo switch
+  const [mainHeroLoaded, setMainHeroLoaded] = useState(false);
   const [selectedCv, setSelectedCv] = useState(null);
   const fileInputRef = useRef(null);
 
@@ -191,6 +194,26 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  // Intro Animation Logic
+  useEffect(() => {
+    // Phase 1: Logo and Text animation (CSS handled)
+    
+    // Phase 2: Move to navbar position after 2 seconds
+    const moveTimer = setTimeout(() => {
+      setIntroPhase('moving');
+    }, 2000);
+
+    // Phase 3: Finish and transition to real app content
+    const finishTimer = setTimeout(() => {
+      setIntroPhase('finished');
+    }, 3500);
+
+    return () => {
+      clearTimeout(moveTimer);
+      clearTimeout(finishTimer);
+    };
+  }, []);
+
   // Side Image Loop
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -226,17 +249,28 @@ function App() {
   }, []);
 
   return (
-    <div className="app-container">
+    <>
+      {/* Simplified Intro Splash Animation */}
+      {introPhase !== 'finished' && (
+        <div className={`intro-overlay ${introPhase === 'moving' ? 'fade-out' : ''}`}>
+          <div className={`intro-content ${introPhase === 'moving' ? 'move-to-nav' : ''}`}>
+            <img src={logoHero} alt="Stride" className="intro-logo-main" />
+          </div>
+        </div>
+      )}
+
+      <div className={`app-container app-content-wrapper ${introPhase !== 'centered' ? 'visible' : ''}`}>
 
       {/* Navbar */}
       {/* HERO SECTION (Contained Card Version) */}
       {/* Navbar Fixed */}
       <header className="hero-inner-navbar">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => window.scrollTo(0, 0)}>
-          <picture>
-            <source media="(max-width: 1024px)" srcSet={logo} />
-            <img src={logoHero} alt="Stride" style={{ width: '120px', height: 'auto', objectFit: 'contain' }} />
-          </picture>
+        <div 
+          className={`navbar-logo-group ${introPhase !== 'centered' ? 'visible' : ''}`}
+          style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} 
+          onClick={() => window.scrollTo(0, 0)}
+        >
+          <img src={logoHero} alt="Stride" style={{ width: '120px', height: 'auto', objectFit: 'contain' }} />
         </div>
 
         {/* Centered Links */}
@@ -285,7 +319,14 @@ function App() {
         {/* Hero section — img tag used instead of CSS background for fastest LCP */}
         <section id="home" className="smart-section-container" ref={bottomRowRef}>
           {/* Hero background image — fetchpriority=high tells the browser to load this before everything else */}
-          <picture style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+          <picture style={{ 
+            position: 'absolute', 
+            inset: 0, 
+            zIndex: 0,
+            opacity: mainHeroLoaded ? 1 : 0,
+            transition: 'opacity 1s ease-in-out',
+            backgroundColor: '#020B1D' // Fallback color
+          }}>
             <source media="(max-width: 1024px)" srcSet={heroBgMobile} />
             <img
               src={heroBg}
@@ -293,6 +334,7 @@ function App() {
               aria-hidden="true"
               fetchPriority="high"
               decoding="sync"
+              onLoad={() => setMainHeroLoaded(true)}
               style={{
                 width: '100%',
                 height: '100%',
@@ -423,16 +465,17 @@ function App() {
                           display: 'block'
                         }}
                       >
-                        <img
-                          src={img}
-                          alt="Side Visual"
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                            borderRadius: '24px'
-                          }}
-                        />
+                          <img
+                            src={img}
+                            alt="Side Visual"
+                            loading={index === 0 ? "eager" : "lazy"}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                              borderRadius: '24px'
+                            }}
+                          />
                       </a>
                     )
                   })}
@@ -996,11 +1039,11 @@ function App() {
                 <h4>CONTACT INFORMATION</h4>
                 <div className="contact-row" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <Mail size={16} />
-                  <span>info@stride-business.com</span>
+                  <a href="mailto:info@stride-business.com" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#0052CC'} onMouseOut={(e) => e.target.style.color = 'inherit'}>info@stride-business.com</a>
                 </div>
-                <div className="contact-row" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <div className="contact-row" style={{ display: 'flex', gap: '8px', alignItems: 'center', marginTop: '0.5rem' }}>
                   <Phone size={16} />
-                  <span>+971 501072044</span>
+                  <a href="tel:+971501072044" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.target.style.color = '#0052CC'} onMouseOut={(e) => e.target.style.color = 'inherit'}>+971 501072044</a>
                 </div>
                 <div className="contact-row" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <MapPin size={16} />
@@ -1055,10 +1098,7 @@ function App() {
               <div className="footer-divider-line" style={{ margin: '2rem 0' }}></div>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
                 <p style={{ margin: 0 }}>© 2026 Stride Business Setup. All rights reserved.</p>
-                <a href="https://www.instagram.com/intellex.web?igsh=MXc4Z2Uwd243OHpqdA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'inherit', textDecoration: 'none', opacity: 0.7, transition: 'opacity 0.2s' }} onMouseOver={(e) => e.currentTarget.style.opacity = '1'} onMouseOut={(e) => e.currentTarget.style.opacity = '0.7'}>
-                  <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Meet the Developers</span>
-                  <Instagram size={14} />
-                </a>
+
               </div>
             </div>
           </div>
@@ -1067,7 +1107,7 @@ function App() {
         {/* Floating Contact Box */}
         <div className={`floating-contact-box ${isScrolled ? 'visible' : ''}`}>
           <p className="floating-contact-title">Get Expert Guidance to Start Your Business</p>
-          <a href="#contact" className="floating-btn floating-btn-primary">
+          <a href="mailto:info@stride-business.com" className="floating-btn floating-btn-primary">
             Enquire Now
           </a>
           <div className="floating-actions-row">
@@ -1079,8 +1119,9 @@ function App() {
             </a>
           </div>
         </div>
-      </div >
-    </div >
+      </div>
+    </div>
+  </>
   );
 }
 
