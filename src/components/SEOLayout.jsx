@@ -7,8 +7,8 @@ export default function SEOLayout({ title, description, keywords, currentUrl, st
     "@context": "https://schema.org",
     "@type": "ConsultingBusiness",
     "name": "Stride Business Setup L.L.C",
-    "url": "https://www.stridesetups.com",
-    "logo": "https://www.stridesetups.com/stride_logo.svg",
+    "url": "https://stride-business.com",
+    "logo": "https://stride-business.com/stride_logo.svg",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Deira Dubai",

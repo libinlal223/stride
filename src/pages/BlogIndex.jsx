@@ -8,7 +8,7 @@ export default function BlogIndex() {
     "@context": "https://schema.org",
     "@type": "Blog",
     "name": "Stride Business Insights",
-    "url": "https://www.stridesetups.com/blog",
+    "url": "https://stride-business.com/blog",
     "description": "Expert insights, news, and guides on business setup, freezones, accounting, and PRO services in the UAE.",
     "publisher": {
       "@type": "ConsultingBusiness",
@@ -21,7 +21,7 @@ export default function BlogIndex() {
       title="UAE Business Setup Blog & Insights | Stride Consulting"
       description="Read the latest insights, step-by-step guides, and news about company formation, corporate tax, corporate banking, and PRO services in Dubai and the UAE."
       keywords="business setup blog UAE, company formation news Dubai, UAE corporate tax guide, freezone benefits 2026, Dubai business insights"
-      currentUrl="https://www.stridesetups.com/blog"
+      currentUrl="https://stride-business.com/blog"
       structuredData={blogSchema}
     >
       <div style={{ background: '#0F172A', padding: '20px', textAlign: 'center' }}>

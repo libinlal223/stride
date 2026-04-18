@@ -22,7 +22,7 @@ export default function Accounting() {
       title="Accounting & Bookkeeping Services Dubai | Corporate Tax UAE"
       description="Expert accounting, bookkeeping, and Corporate Tax registration in Dubai. Ensure your UAE business stays compliant with Stride's financial advisory services."
       keywords="accounting services Dubai, bookkeeping UAE, VAT registration Dubai, Corporate Tax UAE, financial advisory Dubai, UAE tax compliance"
-      currentUrl="https://www.stridesetups.com/accounting-bookkeeping-dubai"
+      currentUrl="https://stride-business.com/accounting-bookkeeping-dubai"
       structuredData={serviceSchema}
     >
       <div style={{ background: '#0F172A', padding: '20px', textAlign: 'center' }}>

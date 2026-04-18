@@ -22,7 +22,7 @@ export default function ProServices() {
       title="Corporate PRO Services Dubai | Document Clearing UAE"
       description="Expert PRO Services in Dubai. Stride handles visas, corporate documentation, government approvals, and Emirates ID processing efficiently and securely."
       keywords="PRO services Dubai, corporate PRO UAE, document clearing Dubai, visa processing UAE, government liaison services"
-      currentUrl="https://www.stridesetups.com/pro-services-dubai"
+      currentUrl="https://stride-business.com/pro-services-dubai"
       structuredData={serviceSchema}
     >
       <div style={{ background: '#0F172A', padding: '20px', textAlign: 'center' }}>

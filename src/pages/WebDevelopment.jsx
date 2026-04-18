@@ -22,7 +22,7 @@ export default function WebDevelopment() {
       title="Company Website Development Dubai | Digital Presence UAE"
       description="Launch your digital storefront with professional company website development in Dubai. Stride provides corporate web design and e-commerce solutions in the UAE."
       keywords="company website development Dubai, corporate web design UAE, ecommerce site Dubai, digital presence business setup, web development agency Dubai"
-      currentUrl="https://www.stridesetups.com/company-website-development-dubai"
+      currentUrl="https://stride-business.com/company-website-development-dubai"
       structuredData={serviceSchema}
     >
       <div style={{ background: '#0F172A', padding: '20px', textAlign: 'center' }}>

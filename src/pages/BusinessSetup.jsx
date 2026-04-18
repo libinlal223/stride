@@ -22,7 +22,7 @@ export default function BusinessSetup() {
       title="Business Setup in UAE | Top Company Formation Dubai"
       description="Looking for business setup in the UAE? Stride offers expert company formation in Dubai, freezones, and mainland. Start your business journey today!"
       keywords="business setup UAE, company formation Dubai, freezone setup UAE, mainland business setup Dubai, offshore company UAE"
-      currentUrl="https://www.stridesetups.com/business-setup-uae"
+      currentUrl="https://stride-business.com/business-setup-uae"
       structuredData={serviceSchema}
     >
       <div style={{ background: '#0F172A', padding: '20px', textAlign: 'center' }}>

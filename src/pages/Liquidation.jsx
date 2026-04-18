@@ -22,7 +22,7 @@ export default function Liquidation() {
       title="Company Liquidation Services UAE | Business Cancellation Dubai"
       description="Require company liquidation in Dubai? Stride handles legal closures, license cancellations, and government clearances to ensure maximum compliance."
       keywords="company liquidation Dubai, business cancellation UAE, close company Dubai, liquidator UAE, deregistrations company UAE"
-      currentUrl="https://www.stridesetups.com/company-liquidation-uae"
+      currentUrl="https://stride-business.com/company-liquidation-uae"
       structuredData={serviceSchema}
     >
       <div style={{ background: '#0F172A', padding: '20px', textAlign: 'center' }}>

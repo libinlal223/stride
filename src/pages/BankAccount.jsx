@@ -22,7 +22,7 @@ export default function BankAccount() {
       title="Corporate Bank Account Opening UAE | Business Banking Dubai"
       description="Open a corporate bank account in the UAE with ease. Stride Business Setup assists with fast approvals across top local and international banks in Dubai."
       keywords="corporate bank account UAE, business banking Dubai, open company account Dubai, offshore bank account UAE, business bank setup"
-      currentUrl="https://www.stridesetups.com/bank-account-opening-uae"
+      currentUrl="https://stride-business.com/bank-account-opening-uae"
       structuredData={serviceSchema}
     >
       <div style={{ background: '#0F172A', padding: '20px', textAlign: 'center' }}>

@@ -31,7 +31,7 @@ export default function BlogPost() {
         "name": "Stride Business Setup",
         "logo": {
             "@type": "ImageObject",
-            "url": "https://www.stridesetups.com/stride_logo.svg"
+            "url": "https://stride-business.com/stride_logo.svg"
         }
     }
   };
@@ -40,7 +40,7 @@ export default function BlogPost() {
     <SEOLayout
       title={`${post.title} | Stride Insights`}
       description={post.excerpt}
-      currentUrl={`https://www.stridesetups.com/blog/${post.slug}`}
+      currentUrl={`https://stride-business.com/blog/${post.slug}`}
       structuredData={articleSchema}
     >
       <div style={{ background: '#0F172A', padding: '20px', textAlign: 'center' }}>
