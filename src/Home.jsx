@@ -39,6 +39,7 @@ import globeImg from './assets/images/globe.png';
 import goldenvisaBg from './assets/images/goldenvisa.png';
 import goldenvisaDesktopBg from './assets/images/goldenvisa1.png';
 
+import ContactModal from './components/ContactModal/ContactModal';
 import './Marquee.css';
 
 const SIDE_IMAGES = [side1, side2, side3, side4];
@@ -157,6 +158,9 @@ function App() {
   const [selectedCv, setSelectedCv] = useState(null);
   const fileInputRef = useRef(null);
 
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [contactModalMessage, setContactModalMessage] = useState('Hello,');
+
   const detailedPackages = useMemo(() => RAW_PACKAGES.map(pkg => ({
     ...pkg,
     features: [...pkg.features].sort(() => Math.random() - 0.5)
@@ -252,6 +256,11 @@ function App() {
 
   return (
     <>
+      <ContactModal 
+        isOpen={contactModalOpen} 
+        onClose={() => setContactModalOpen(false)} 
+        defaultMessage={contactModalMessage} 
+      />
       {/* Simplified Intro Splash Animation */}
       {introPhase !== 'finished' && (
         <div className={`intro-overlay ${introPhase === 'moving' ? 'fade-out' : ''}`}>
@@ -272,7 +281,7 @@ function App() {
           style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} 
           onClick={() => window.scrollTo(0, 0)}
         >
-          <img src={logoHero} alt="Stride" style={{ width: '120px', height: 'auto', objectFit: 'contain' }} />
+          <img src={logoHero} alt="Stride Business Setup" style={{ width: '120px', height: 'auto', objectFit: 'contain' }} />
         </div>
 
         {/* Centered Links */}
@@ -283,11 +292,10 @@ function App() {
           <a href="#contact" style={{ color: '#0F172A' }}>Contact Us</a>
         </nav>
 
-        {/* Right Action */}
         <div className="navbar-right-action">
-          <a href="tel:+971501072044" className="btn-nav-blue" style={{ textDecoration: 'none' }}>
+          <button onClick={() => setContactModalOpen(true)} className="btn-nav-blue" style={{ textDecoration: 'none', border: 'none', cursor: 'pointer' }}>
             Book an Appointment
-          </a>
+          </button>
           <button className="navbar-mobile-toggle-dark" aria-label="Toggle mobile menu" onClick={() => setMobileMenuOpen(true)}>
             <span style={{ color: '#0F172A', fontSize: '1.5rem' }}>☰</span>
           </button>
@@ -311,9 +319,9 @@ function App() {
             <a href="#packages" onClick={() => setMobileMenuOpen(false)} style={{ color: '#0F172A', textDecoration: 'none', borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem' }}>Packages</a>
             <a href="#contact" onClick={() => setMobileMenuOpen(false)} style={{ color: '#0F172A', textDecoration: 'none', borderBottom: '1px solid #f1f5f9', paddingBottom: '1rem' }}>Contact Us</a>
           </nav>
-          <a href="tel:+971501072044" onClick={() => setMobileMenuOpen(false)} style={{ marginTop: 'auto', background: '#0052CC', color: 'white', padding: '1rem', textAlign: 'center', borderRadius: '50px', textDecoration: 'none', fontWeight: '600' }}>
+          <button onClick={() => { setMobileMenuOpen(false); setContactModalOpen(true); }} style={{ marginTop: 'auto', background: '#0052CC', color: 'white', padding: '1rem', textAlign: 'center', borderRadius: '50px', textDecoration: 'none', fontWeight: '600', border: 'none', cursor: 'pointer' }}>
             Book an Appointment
-          </a>
+          </button>
         </div>
       )}
 
@@ -361,7 +369,10 @@ function App() {
               </h2>
               <button
                 className="btn-smart-primary"
-                onClick={() => window.open('https://wa.me/971501072044?text=Hello,%20I%20would%20like%20to%20book%20a%20consultation%20with%20Stride.%20Please%20share%20the%20details.', '_blank')}
+                onClick={() => {
+                  setContactModalMessage('Hello, I would like to book a consultation with Stride. Please share the details.');
+                  setContactModalOpen(true);
+                }}
               >
                 Book a Free Consultation <span style={{ fontSize: '1.2rem' }}>→</span>
               </button>
@@ -432,9 +443,9 @@ function App() {
                   We simplify the complexities of business setup through personalized solutions, regulatory expertise, and practical insights tailored to each client's goals. Our commitment is to build long-term partnerships by ensuring efficiency, compliance, and sustainable growth at every stage of your business journey.
                 </p>
 
-                <a target="_blank" rel="noopener noreferrer" href="https://wa.me/971501072044?text=Hello,%20I%20would%20like%20to%20get%20expert%20advisory%20support%20from%20Stride.%20Could%20you%20please%20provide%20more%20details" className="business-cta-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
+                <button onClick={(e) => { e.preventDefault(); setContactModalMessage('Hello, I would like to get expert advisory support from Stride. Could you please provide more details'); setContactModalOpen(true); }} className="business-cta-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', border: 'none', cursor: 'pointer' }}>
                   Get Expert Advisory Support <span style={{ marginLeft: '8px' }}>→</span>
-                </a>
+                </button>
               </div>
             </div>
 
@@ -602,9 +613,9 @@ function App() {
 
                 <p className="cost-calc-desc">
                   Get a clear estimate of your business setup costs across the UAE, GCC, and India. Plan confidently with accurate and transparent insights.                </p>
-                <a href="tel:+9710501072044" className="btn btn-dark-pill cost-calc-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
+                <button onClick={(e) => { e.preventDefault(); setContactModalMessage('Hello, I am interested in your cost calculator insights.'); setContactModalOpen(true); }} className="btn btn-dark-pill cost-calc-btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', border: 'none', cursor: 'pointer' }}>
                   contact now<span style={{ marginLeft: '8px' }}>→</span>
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -855,10 +866,8 @@ function App() {
               }}>
                 Secure your future with the prestigious 10-year residency program. Unlock exclusive benefits for you and your family.
               </p>
-              <a
-                href="https://wa.me/971501072044?text=Hello,%20I%E2%80%99m%20interested%20in%20applying%20for%20the%20UAE%20Golden%20Visa.%20Could%20you%20please%20provide%20more%20details%20about%20the%20eligibility%20and%20process"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={(e) => { e.preventDefault(); setContactModalMessage('Hello, I’m interested in applying for the UAE Golden Visa. Could you please provide more details about the eligibility and process'); setContactModalOpen(true); }}
                 className="business-cta-btn" style={{
                   background: 'linear-gradient(135deg, #FFD700 0%, #D4AF37 100%)',
                   color: '#0F172A',
@@ -867,10 +876,11 @@ function App() {
                   fontSize: '1.1rem',
                   textDecoration: 'none',
                   boxShadow: '0 8px 24px rgba(212, 175, 55, 0.4)',
-                  transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  cursor: 'pointer'
                 }}>
                 Register Now
-              </a>
+              </button>
             </div>
           </div>
         </section>
@@ -1109,16 +1119,16 @@ function App() {
         {/* Floating Contact Box */}
         <div className={`floating-contact-box ${isScrolled ? 'visible' : ''}`}>
           <p className="floating-contact-title">Get Expert Guidance to Start Your Business</p>
-          <a href="mailto:info@stride-business.com" className="floating-btn floating-btn-primary">
+          <button onClick={() => { setContactModalMessage('Hello, I want to enquire now.'); setContactModalOpen(true); }} className="floating-btn floating-btn-primary" style={{ border: 'none', cursor: 'pointer' }}>
             Enquire Now
-          </a>
+          </button>
           <div className="floating-actions-row">
-            <a href="https://wa.me/971501072044?text=Hello,%20I%20need%20expert%20guidance%20to%20start%20my%20business." target="_blank" rel="noopener noreferrer" className="floating-btn floating-btn-whatsapp" title="WhatsApp Us">
+            <button onClick={() => { setContactModalMessage('Hello, I need expert guidance to start my business.'); setContactModalOpen(true); }} className="floating-btn floating-btn-whatsapp" title="WhatsApp Us" style={{ border: 'none', cursor: 'pointer' }}>
               <MessageCircle size={18} />
-            </a>
-            <a href="tel:+971501072044" className="floating-btn floating-btn-call" title="Call Us">
+            </button>
+            <button onClick={() => { setContactModalMessage('Hello,'); setContactModalOpen(true); }} className="floating-btn floating-btn-call" title="Call Us" style={{ border: 'none', cursor: 'pointer' }}>
               <Phone size={18} />
-            </a>
+            </button>
           </div>
         </div>
       </div>
